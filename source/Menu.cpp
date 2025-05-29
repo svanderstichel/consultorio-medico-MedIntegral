@@ -5,7 +5,6 @@ using namespace std;
 
 void Menu::menuPrincipal(){
     int opcion;
-
     do {
         system("cls");
         cout << "======================================\n";

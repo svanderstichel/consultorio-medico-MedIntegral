@@ -10,5 +10,4 @@ class Menu{
             void menuEspecialidad();
             void menuReportes();
             void menuConfiguracion();
-
 };
