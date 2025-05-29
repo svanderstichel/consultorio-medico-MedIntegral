@@ -4,3 +4,4 @@ obj/
 
 # Ignorar archivos .layout
 *.layout
+*.depend
