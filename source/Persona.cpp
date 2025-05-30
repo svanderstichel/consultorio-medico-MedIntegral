@@ -1,4 +1,4 @@
-#include "iostream"
+#include <iostream>
 #include <cstring>
 #include "Persona.h"
 
@@ -21,7 +21,7 @@ Persona::Persona(int dni,std::string apellido,std::string nombre,std::string tel
     setEstado(estado);
 }
 
-//getters
+///getters
 int Persona::getDni(){
     return _dni;
 }
@@ -41,7 +41,7 @@ bool Persona::getEstado(){
     return _estado;
 }
 
-//setters
+///setters
 void Persona::setDni(int dni){
     if(dni<1000000 || dni>99999999){
         std::cout << "\nDNI invalido (fuera de rango).\n";

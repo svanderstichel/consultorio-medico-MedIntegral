@@ -3,17 +3,17 @@
 
 class Persona{
     public:
-        //constructores
+        ///constructores
         Persona();
         Persona(int dni,std::string apellido,std::string nombre,std::string telefono,std::string email,bool estado);
-        //getters
+        ///getters
         int getDni();
         std::string getApellido();
         std::string getNombre();
         std::string getTelefono();
         std::string getEmail();
         bool getEstado();
-        //setters
+        ///setters
         void setDni(int dni);
         void setApellido(std::string apellido);
         void setNombre(std::string nombre);
