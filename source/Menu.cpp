@@ -21,6 +21,7 @@ void Menu::menuPrincipal(){
         cout << "--------------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
+        cin.ignore();
 
          switch (opcion) {
             case 1: menuPaciente(); break;
@@ -43,34 +44,227 @@ void Menu::menuPrincipal(){
 }
 
 void Menu::menuPaciente() {
-    system("cls");
-    cout << "---- PACIENTES ----\n";
-    system("pause");
+    int opcion;
+    do {
+        system("cls");
+        cout << "================================\n";
+        cout << "\tMENU PACIENTES \n";
+        cout << "================================\n";
+        cout << "1 - Alta de paciente\n";
+        cout << "2 - Baja de paciente\n";
+        cout << "3 - Modificar paciente\n";
+        cout << "4 - Listar pacientes\n";
+        cout << "0 - Volver al menu principal\n";
+        cout << "--------------------------------\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        cin.ignore();
+
+        switch (opcion) {
+            case 1:
+                cout << ">> ALTA de paciente\n";
+                // Llamar a la función de alta aquí
+                break;
+            case 2:
+                cout << ">> BAJA de paciente\n";
+                // Llamar a la función de baja aquí
+                break;
+            case 3:
+                cout << ">> MODIFICAR paciente\n";
+                // Llamar a la función de modificar aquí
+                break;
+            case 4:
+                cout << ">> LISTAR pacientes\n";
+                // Llamar a la función de listar aquí
+                break;
+            case 0:
+                cout << "Volviendo al menu principal...\n";
+                break;
+            default:
+                cout << "Opcion invalida. Intente nuevamente.\n";
+        }
+        system("pause");
+    } while (opcion != 0);
 }
 
 void Menu::menuMedico() {
-    system("cls");
-    cout << "---- MEDICOS ----\n";
-    system("pause");
+    int opcion;
+    do {
+        system("cls");
+        cout << "================================\n";
+        cout << "\tMENU MEDICOS \n";
+        cout << "================================\n";
+        cout << "1 - Alta de medico\n";
+        cout << "2 - Baja de medico\n";
+        cout << "3 - Modificar medico\n";
+        cout << "4 - Listar medicos\n";
+        cout << "0 - Volver al menu principal\n";
+        cout << "--------------------------------\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        cin.ignore();
+
+        switch (opcion) {
+            case 1:
+                cout << ">> ALTA de medico\n";
+                // Llamar a la función de alta aquí
+                break;
+            case 2:
+                cout << ">> BAJA de medico\n";
+                // Llamar a la función de baja aquí
+                break;
+            case 3:
+                cout << ">> MODIFICAR medico\n";
+                // Llamar a la función de modificar aquí
+                break;
+            case 4:
+                cout << ">> LISTAR medicos\n";
+                // Llamar a la función de listar aquí
+                break;
+            case 0:
+                cout << "Volviendo al menu principal...\n";
+                break;
+            default:
+                cout << "Opcion invalida. Intente nuevamente.\n";
+        }
+        system("pause");
+    } while (opcion != 0);
 }
 
 void Menu::menuTurno() {
-    system("cls");
-    cout << "---- TURNOS ----\n";
-    system("pause");
+    int opcion;
+    do {
+        system("cls");
+        cout << "================================\n";
+        cout << "\tMENU TURNOS \n";
+        cout << "================================\n";
+        cout << "1 - Alta de turno\n";
+        cout << "2 - Baja de turno\n";
+        cout << "3 - Modificar turno\n";
+        cout << "4 - Listar turnos\n";
+        cout << "0 - Volver al menu principal\n";
+        cout << "--------------------------------\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        cin.ignore();
+
+        switch (opcion) {
+            case 1:
+                cout << ">> ALTA de turno\n";
+                // Llamar a la función de alta aquí
+                break;
+            case 2:
+                cout << ">> BAJA de turno\n";
+                // Llamar a la función de baja aquí
+                break;
+            case 3:
+                cout << ">> MODIFICAR turno\n";
+                // Llamar a la función de modificar aquí
+                break;
+            case 4:
+                cout << ">> LISTAR turnos\n";
+                // Llamar a la función de listar aquí
+                break;
+            case 0:
+                cout << "Volviendo al menu principal...\n";
+                break;
+            default:
+                cout << "Opcion invalida. Intente nuevamente.\n";
+        }
+        system("pause");
+    } while (opcion != 0);
 }
+
 
 void Menu::menuObraSocial() {
-    system("cls");
-    cout << "---- OBRAS SOCIALES ----\n";
-    system("pause");
+    int opcion;
+    do {
+        system("cls");
+        cout << "================================\n";
+        cout << "\tMENU OBRAS SOCIALES \n";
+        cout << "================================\n";
+        cout << "1 - Alta de obra social\n";
+        cout << "2 - Baja de obra social\n";
+        cout << "3 - Modificar obra social\n";
+        cout << "4 - Listar obras sociales\n";
+        cout << "0 - Volver al menu principal\n";
+        cout << "--------------------------------\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        cin.ignore();
+
+        switch (opcion) {
+            case 1:
+                cout << ">> ALTA de obra social\n";
+                // Llamar a la función de alta aquí
+                break;
+            case 2:
+                cout << ">> BAJA de obra social\n";
+                // Llamar a la función de baja aquí
+                break;
+            case 3:
+                cout << ">> MODIFICAR obra social\n";
+                // Llamar a la función de modificar aquí
+                break;
+            case 4:
+                cout << ">> LISTAR obras sociales\n";
+                // Llamar a la función de listar aquí
+                break;
+            case 0:
+                cout << "Volviendo al menu principal...\n";
+                break;
+            default:
+                cout << "Opcion invalida. Intente nuevamente.\n";
+        }
+        system("pause");
+    } while (opcion != 0);
 }
 
+
 void Menu::menuEspecialidad() {
-    system("cls");
-    cout << "---- ESPECIALIDADES ----\n";
-    system("pause");
+    int opcion;
+    do {
+        system("cls");
+        cout << "================================\n";
+        cout << "\tMENU ESPECIALIDADES \n";
+        cout << "================================\n";
+        cout << "1 - Alta de especialidad\n";
+        cout << "2 - Baja de especialidad\n";
+        cout << "3 - Modificar especialidad\n";
+        cout << "4 - Listar especialidades\n";
+        cout << "0 - Volver al menu principal\n";
+        cout << "--------------------------------\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        cin.ignore();
+
+        switch (opcion) {
+            case 1:
+                cout << ">> ALTA de especialidad\n";
+                // Llamar a la función de alta aquí
+                break;
+            case 2:
+                cout << ">> BAJA de especialidad\n";
+                // Llamar a la función de baja aquí
+                break;
+            case 3:
+                cout << ">> MODIFICAR especialidad\n";
+                // Llamar a la función de modificar aquí
+                break;
+            case 4:
+                cout << ">> LISTAR especialidades\n";
+                // Llamar a la función de listar aquí
+                break;
+            case 0:
+                cout << "Volviendo al menu principal...\n";
+                break;
+            default:
+                cout << "Opcion invalida. Intente nuevamente.\n";
+        }
+        system("pause");
+    } while (opcion != 0);
 }
+
 
 void Menu::menuReportes() {
     system("cls");
