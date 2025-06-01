@@ -31,6 +31,7 @@ bool Medico::setCodigoEspecialidad(int codigoEspecialidad){
     _codigoEspecialidad = codigoEspecialidad;
     return true;
 }
-void Medico::setFechaNacimiento(FechaHora fechaNacimiento){
+bool Medico::setFechaNacimiento(FechaHora fechaNacimiento){
     _fechaNacimiento = fechaNacimiento;
+    return true;
 }
