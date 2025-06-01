@@ -11,7 +11,6 @@ void MedicoManager::alta(){
     string apellido,nombre,telefono,email;
     FechaHora fechaNacimiento;
 
-
     cout << "\nIngrese DNI: ";
     cin >> dni;
     cin.ignore();
@@ -32,15 +31,13 @@ void MedicoManager::alta(){
     cin >> codigoEspecialidad;
     cin.ignore();
 
-    cout << "Ingrese Fecha de Nacimiento:\n";
+    cout << "Fecha de Nacimiento\n";
     fechaNacimiento.cargarFecha();
 
     Medico reg(dni,apellido,nombre,telefono,email,true,codigoEspecialidad,fechaNacimiento);
-    if(archivo.escribir(reg)){
-        cout <<"\nMedico cargado correctamente!";
-    } else{
-        cout <<"\nSe produjo un error inesperado.";
-    }
+
+    if(archivo.escribir(reg)){cout <<"\nMedico cargado correctamente!\n";}
+    else{cout <<"\nSe produjo un error inesperado.\n";}
 }
 void MedicoManager::baja(){return;}
 void MedicoManager::modificar(){return;}

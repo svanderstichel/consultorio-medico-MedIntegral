@@ -12,7 +12,7 @@ class Medico: public Persona{
         int getCodigoEspecialidad();
         FechaHora getFechaNacimiento();
         ///setters
-        void setCodigoEspecialidad(int codigoEspecialidad);
+        bool setCodigoEspecialidad(int codigoEspecialidad);
         void setFechaNacimiento(FechaHora fechaNacimiento);
     private:
         int _codigoEspecialidad;

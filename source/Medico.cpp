@@ -23,12 +23,13 @@ FechaHora Medico::getFechaNacimiento(){
 }
 
 ///setters
-void Medico::setCodigoEspecialidad(int codigoEspecialidad){
+bool Medico::setCodigoEspecialidad(int codigoEspecialidad){
     if(codigoEspecialidad<0 || codigoEspecialidad>100){
-        std::cout << "Codigo especialidad invalido (fuera de rango).";
-        return;
+        std::cout << "Codigo especialidad invalido (fuera de rango).\n";
+        return false;
     }
     _codigoEspecialidad = codigoEspecialidad;
+    return true;
 }
 void Medico::setFechaNacimiento(FechaHora fechaNacimiento){
     _fechaNacimiento = fechaNacimiento;

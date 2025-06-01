@@ -30,26 +30,24 @@ void FechaHora::cargarFecha(){
 
     ///validacion de ingreso de dia
     while(dia<1 || dia>31){
-        cout << "\nIngrese dia: ";
+        cout << "Ingrese dia: ";
         cin >> dia;
         cin.ignore();
 
         if(dia<1 || dia>31){
             cout << "Dia invalido (fuera de rango).\n";
-            system("pause");
         }
     }
     _dia = dia;
 
     ///validacion de ingreso de mes
     while(mes<1 || mes>12){
-        cout << "\nIngrese mes: ";
+        cout << "Ingrese mes: ";
         cin >> mes;
         cin.ignore();
 
         if(mes<1 || mes>12){
             cout << "Mes invalido (fuera de rango).\n";
-            system("pause");
         }
     }
     _mes = mes;
@@ -62,7 +60,6 @@ void FechaHora::cargarFecha(){
 
         if(anio<1900 || anio>2050){
             cout << "Anio invalido (fuera de rango).\n";
-            system("pause");
         }
     }
     _anio = anio;
@@ -72,13 +69,12 @@ void FechaHora::cargarHora(){
 
     ///validacion de ingreso de hora
     while(hora<0 || hora>23){
-        cout << "\nIngrese hora (formato 0-23): ";
+        cout << "Ingrese hora (formato 0-23): ";
         cin >> hora;
         cin.ignore();
 
         if(hora<0 || hora>23){
             cout << "Hora invalida (fuera de rango).\n";
-            system("pause");
         }
     }
 

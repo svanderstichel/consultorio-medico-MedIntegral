@@ -110,19 +110,19 @@ void Menu::menuMedico() {
 
         switch (opcion) {
             case 1:
-                cout << ">> ALTA de medico\n";
+                cout << "\n<Alta de medico>\n";
                 obj.alta();
                 break;
             case 2:
-                cout << ">> BAJA de medico\n";
+                cout << "\n<Baja de medico>\n";
                 obj.baja();
                 break;
             case 3:
-                cout << ">> MODIFICAR medico\n";
+                cout << "\n<Modificar medico>\n";
                 obj.modificar();
                 break;
             case 4:
-                cout << ">> LISTAR medicos\n";
+                cout << "\n<Listar medico>\n";
                 obj.listar();
                 break;
             case 0:

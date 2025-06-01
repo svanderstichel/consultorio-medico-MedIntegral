@@ -14,11 +14,11 @@ class Persona{
         std::string getEmail();
         bool getEstado();
         ///setters
-        void setDni(int dni);
-        void setApellido(std::string apellido);
-        void setNombre(std::string nombre);
-        void setTelefono(std::string telefono);
-        void setEmail(std::string email);
+        bool setDni(int dni);
+        bool setApellido(std::string apellido);
+        bool setNombre(std::string nombre);
+        bool setTelefono(std::string telefono);
+        bool setEmail(std::string email);
         void setEstado(bool estado);
     private:
         int _dni;

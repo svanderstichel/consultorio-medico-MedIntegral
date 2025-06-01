@@ -42,47 +42,47 @@ bool Persona::getEstado(){
 }
 
 ///setters
-void Persona::setDni(int dni){
+bool Persona::setDni(int dni){
     if(dni<1000000 || dni>99999999){
         std::cout << "\nDNI invalido (fuera de rango).\n";
-        system("pause");
-        return;
+        return false;
     }
     _dni = dni;
+    return true;
 }
 
-void Persona::setApellido(std::string apellido){
+bool Persona::setApellido(std::string apellido){
     if(apellido.size()+1>50){
         std::cout << "\nApellido invalido (excede max. caracteres).\n";
-        system("pause");
-        return;
+        return false;
     }
     strcpy(_apellido,apellido.c_str());
+    return true;
 }
 
-void Persona::setNombre(std::string nombre){
+bool Persona::setNombre(std::string nombre){
     if(nombre.size()+1>50){
         std::cout << "\nNombre invalido (excede max. caracteres).\n";
-        system("pause");
-        return;
+        return false;
     }
     strcpy(_nombre,nombre.c_str());
+    return true;
 }
-void Persona::setTelefono(std::string telefono){
+bool Persona::setTelefono(std::string telefono){
     if(telefono.size()+1>50){
         std::cout << "\nTelefono invalido (excede max. caracteres).\n";
-        system("pause");
-        return;
+        return false;
     }
     strcpy(_telefono,telefono.c_str());
+    return true;
 }
-void Persona::setEmail(std::string email){
+bool Persona::setEmail(std::string email){
     if(email.size()+1>50){
         std::cout << "\nEmail invalido (excede max. caracteres).\n";
-        system("pause");
-        return;
+        return false;
     }
     strcpy(_email,email.c_str());
+    return true;
 }
 void Persona::setEstado(bool estado){
     _estado = estado;
