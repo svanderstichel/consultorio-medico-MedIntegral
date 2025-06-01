@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Menu.h"
 #include "PacienteManager.h"
+#include "MedicoManager.h"
 
 using namespace std;
 
@@ -89,7 +90,9 @@ void Menu::menuPaciente() {
 }
 
 void Menu::menuMedico() {
+    MedicoManager obj;
     int opcion;
+
     do {
         system("cls");
         cout << "================================\n";
@@ -108,19 +111,19 @@ void Menu::menuMedico() {
         switch (opcion) {
             case 1:
                 cout << ">> ALTA de medico\n";
-                // Llamar a la función de alta aquí
+                obj.alta();
                 break;
             case 2:
                 cout << ">> BAJA de medico\n";
-                // Llamar a la función de baja aquí
+                obj.baja();
                 break;
             case 3:
                 cout << ">> MODIFICAR medico\n";
-                // Llamar a la función de modificar aquí
+                obj.modificar();
                 break;
             case 4:
                 cout << ">> LISTAR medicos\n";
-                // Llamar a la función de listar aquí
+                obj.listar();
                 break;
             case 0:
                 cout << "Volviendo al menu principal...\n";

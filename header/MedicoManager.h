@@ -1,4 +1,5 @@
 #pragma once
+#include "MedicoArchivo.h"
 
 class MedicoManager{
     public:
@@ -6,4 +7,6 @@ class MedicoManager{
         void baja();
         void modificar();
         void listar();
+    private:
+        MedicoArchivo archivo;
 };
