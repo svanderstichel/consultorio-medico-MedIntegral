@@ -74,5 +74,25 @@ void MedicoManager::listar(){
         }
     }
 }
-void MedicoManager::baja(){return;}
+void MedicoManager::baja(){
+    Medico reg;
+    int dni;
+    int pos;
+
+    cout << "Ingrese el DNI del medico: ";
+    cin >> dni;
+    cin.ignore();
+
+    pos = archivo.getPosicion(dni);
+    if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
+
+    if(pos!=-1){
+    reg = archivo.leer(pos);
+    reg.setEstado(false);
+    if(archivo.escribir(pos,reg)){
+            cout << "\nEl medico fue dado de baja correctamente.\n";
+        }else{cout << "\nSe produjo un error de escritura en el disco.\n";}
+    }
+
+}
 void MedicoManager::modificar(){return;}
