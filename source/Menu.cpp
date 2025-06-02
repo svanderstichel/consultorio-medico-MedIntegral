@@ -122,7 +122,7 @@ void Menu::menuMedico() {
                 obj.modificar();
                 break;
             case 4:
-                cout << "\n<Listar medico>\n";
+                cout << "\n\n";
                 obj.listar();
                 break;
             case 0:

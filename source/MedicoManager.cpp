@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "Medico.h"
 #include "MedicoManager.h"
 #include "FechaHora.h"
@@ -18,6 +19,9 @@ void MedicoManager::alta(){
     cin >> dni;
     cin.ignore();
     reg.setDni(dni);}
+
+    if(archivo.getPosicion(dni)!=-1)
+    {cout<<"\nEl DNI ya se encuentra registrado\n";return;}
 
     while(reg.getApellido()==""){
     cout << "Ingrese Apellido: ";
@@ -47,6 +51,7 @@ void MedicoManager::alta(){
 
     cout << "Fecha de Nacimiento\n";
     fechaNacimiento.cargarFecha();
+    reg.setFechaNacimiento(fechaNacimiento);
 
     if(archivo.escribir(reg)){cout <<"\nMedico cargado correctamente!\n";}
     else{cout <<"\nSe produjo un error de escritura en disco.\n";}
@@ -55,24 +60,43 @@ void MedicoManager::listar(){
     int cantReg = archivo.getCantidadRegistros();
     Medico *vec;
 
+    if(cantReg<=0){cout <<"No se registran medicos activos.\n";return;}
+
     vec = new Medico[cantReg];
     if(vec==nullptr){cout <<"\nSe produjo un error de asignacion de memoria.\n";return;}
 
     archivo.leer(cantReg,vec);
 
-    for(int i=0;i<cantReg;i++){
-        if(vec[i].getEstado()){
-        cout << vec[i].getDni() << "\t"
-            << vec[i].getApellido() << "\t"
-            << vec[i].getNombre() << "\t"
-            << vec[i].getEmail() << "\t"
-            << vec[i].getTelefono() << "\t"
-            << vec[i].getCodigoEspecialidad() << "\t"
-            << vec[i].getFechaNacimiento().getDia() << "/"
-            << vec[i].getFechaNacimiento().getMes() << "/"
-            << vec[i].getFechaNacimiento().getAnio() << endl;
+    ///print de tabla
+    ///encabezado de columnas
+    cout << left
+         << setw(12) << "DNI"
+         << setw(15) << "Apellido"
+         << setw(15) << "Nombre"
+         << setw(30) << "Email"
+         << setw(15) << "Telefono"
+         << setw(10) << "Codigo"
+         << setw(12) << "Nacimiento"
+         << endl;
+
+    cout << string(107, '-') << endl;///barra separadora
+
+    for (int i = 0; i < cantReg; i++) {
+        if (vec[i].getEstado()) {
+            cout << left ///establece alineacion
+                 << setw(12) << vec[i].getDni()
+                 << setw(15) << vec[i].getApellido()
+                 << setw(15) << vec[i].getNombre()
+                 << setw(30) << vec[i].getEmail()
+                 << setw(15) << vec[i].getTelefono()
+                 << setw(10) << vec[i].getCodigoEspecialidad()
+                 << vec[i].getFechaNacimiento().getDia() << "/"
+                 << vec[i].getFechaNacimiento().getMes() << "/"
+                 << vec[i].getFechaNacimiento().getAnio()
+                 << setfill(' ') << endl;///establece char de relleno
+                 }
         }
-    }
+    cout << endl;
     delete[] vec;
 }
 void MedicoManager::baja(){
