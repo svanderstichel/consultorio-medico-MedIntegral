@@ -46,6 +46,7 @@ void Menu::menuPrincipal(){
 }
 
 void Menu::menuPaciente() {
+    PacienteManager obj;
     int opcion;
     do {
         system("cls");
@@ -65,19 +66,19 @@ void Menu::menuPaciente() {
         switch (opcion) {
             case 1:
                 cout << ">> ALTA de paciente\n";
-                altaPaciente();
+                obj.altaPaciente();
                 break;
             case 2:
                 cout << ">> BAJA de paciente\n";
-                bajaPaciente();
+                obj.bajaPaciente();
                 break;
             case 3:
                 cout << ">> MODIFICAR paciente\n";
-                modificarPAciente();
+                obj.modificarPAciente();
                 break;
             case 4:
                 cout << ">> LISTAR pacientes\n";
-                listarPaciente();
+                obj.listarPaciente();
                 break;
             case 0:
                 cout << "Volviendo al menu principal...\n";
