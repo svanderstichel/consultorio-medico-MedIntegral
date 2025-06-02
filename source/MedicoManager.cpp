@@ -135,14 +135,31 @@ void MedicoManager::modificar(){
 
     if(pos!=-1){
     reg = archivo.leer(pos);
-    cout << reg.getApellido() << "\t"
-        << reg.getNombre() << "\t"
-        << reg.getEmail() << "\t"
-        << reg.getTelefono() << "\t"
-        << reg.getCodigoEspecialidad() << "\t"
-        << reg.getFechaNacimiento().getDia() << "/"
-        << reg.getFechaNacimiento().getMes() << "/"
-        << reg.getFechaNacimiento().getAnio() << endl;
+
+    ///print de tabla
+    ///encabezado de columnas
+    cout << endl << left
+         << setw(15) << "Apellido"
+         << setw(15) << "Nombre"
+         << setw(30) << "Email"
+         << setw(15) << "Telefono"
+         << setw(10) << "Codigo"
+         << setw(12) << "Nacimiento"
+         << endl;
+
+    cout << string(95, '-') << endl;///barra separadora
+
+    cout << left ///establece alineacion
+         << setw(15) << reg.getApellido()
+         << setw(15) << reg.getNombre()
+         << setw(30) << reg.getEmail()
+         << setw(15) << reg.getTelefono()
+         << setw(10) << reg.getCodigoEspecialidad()
+         << reg.getFechaNacimiento().getDia() << "/"
+         << reg.getFechaNacimiento().getMes() << "/"
+         << reg.getFechaNacimiento().getAnio()
+         << setfill(' ') << endl;///establece char de relleno
+
 
     cout << "\n1 - Apellido";
     cout << "\n2 - Nombre";
