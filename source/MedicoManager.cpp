@@ -12,47 +12,100 @@ void MedicoManager::alta(){
     int dni,codigoEspecialidad;
     string apellido,nombre,telefono,email;
     FechaHora fechaNacimiento;
+    FechaHora inicioActividad;
     Medico reg;
+    int contadorIntentos=0;
 
-    while(reg.getDni()==1000000){
+    ///ingreso de datos
+    ///cargar dni
+    while(reg.getDni()==1000000 && contadorIntentos<=3){
     cout << "Ingrese DNI: ";
     cin >> dni;
     cin.ignore();
-    reg.setDni(dni);}
+    reg.setDni(dni);
+    contadorIntentos++;}
 
+    ///verificar que dni no exista
     if(archivo.getPosicion(dni)!=-1)
     {cout<<"\nEl DNI ya se encuentra registrado\n";return;}
 
-    while(reg.getApellido()==""){
+    ///verificar limite de reintentos
+    if(contadorIntentos>3)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///carga de apellido
+    while(reg.getApellido()=="" && contadorIntentos<=3){
     cout << "Ingrese Apellido: ";
     getline(cin, apellido);
-    reg.setApellido(apellido);}
+    reg.setApellido(apellido);
+    contadorIntentos++;}
 
-    while(reg.getNombre()==""){
+    ///verificar limite de reintentos
+    if(contadorIntentos>3)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///carga de nombre
+    while(reg.getNombre()=="" && contadorIntentos<=3){
     cout << "Ingrese Nombre: ";
     getline(cin, nombre);
-    reg.setNombre(nombre);}
+    reg.setNombre(nombre);
+    contadorIntentos++;}
 
-    while(reg.getTelefono()==""){
+    ///verificar limite de reintentos
+    if(contadorIntentos>3)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///carga de telefono
+    while(reg.getTelefono()=="" && contadorIntentos<=3){
     cout << "Ingrese Telefono: ";
     getline(cin, telefono);
-    reg.setTelefono(telefono);}
+    reg.setTelefono(telefono);
+    contadorIntentos++;}
 
-    while(reg.getEmail()==""){
+    ///verificar limite de reintentos
+    if(contadorIntentos>3)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///carga de email
+    while(reg.getEmail()=="" && contadorIntentos<=3){
     cout << "Ingrese Email: ";
     getline(cin, email);
-    reg.setEmail(email);}
+    reg.setEmail(email);
+    contadorIntentos++;}
 
-    while(reg.getCodigoEspecialidad()==0){
+    ///verificar limite de reintentos
+    if(contadorIntentos>3)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///carga de codigo de especialidad
+    while(reg.getCodigoEspecialidad()==0 && contadorIntentos<=3){
     cout << "Ingrese Codigo de Especialidad: ";
     cin >> codigoEspecialidad;
     cin.ignore();
-    reg.setCodigoEspecialidad(codigoEspecialidad);}
+    reg.setCodigoEspecialidad(codigoEspecialidad);
+    contadorIntentos++;}
 
+    ///verificar limite de reintentos
+    if(contadorIntentos>3)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///carga de fecha de nacimiento
     cout << "Fecha de Nacimiento\n";
     fechaNacimiento.cargarFecha();
     reg.setFechaNacimiento(fechaNacimiento);
 
+    ///carga de fecha de inicio de actividad
+    cout << "Fecha de inicio de actividad\n";
+    inicioActividad.cargarFecha();
+    reg.setInicioActividad(inicioActividad);
+
+    ///escritura en disco
     if(archivo.escribir(reg)){cout <<"\nMedico cargado correctamente!\n";}
     else{cout <<"\nSe produjo un error de escritura en disco.\n";}
 }
@@ -75,11 +128,11 @@ void MedicoManager::listar(){
          << setw(15) << "Nombre"
          << setw(30) << "Email"
          << setw(15) << "Telefono"
-         << setw(10) << "Codigo"
-         << setw(12) << "Nacimiento"
+         << setw(15) << "Codigo esp."
+         << setw(15) << "Inicio act."
          << endl;
 
-    cout << string(107, '-') << endl;///barra separadora
+    cout << string(113, '-') << endl;///barra separadora
 
     for (int i = 0; i < cantReg; i++) {
         if (vec[i].getEstado()) {
@@ -89,10 +142,10 @@ void MedicoManager::listar(){
                  << setw(15) << vec[i].getNombre()
                  << setw(30) << vec[i].getEmail()
                  << setw(15) << vec[i].getTelefono()
-                 << setw(10) << vec[i].getCodigoEspecialidad()
-                 << vec[i].getFechaNacimiento().getDia() << "/"
-                 << vec[i].getFechaNacimiento().getMes() << "/"
-                 << vec[i].getFechaNacimiento().getAnio()
+                 << setw(15) << vec[i].getCodigoEspecialidad()
+                 << vec[i].getInicioActividad().getDia() << "/"
+                 << vec[i].getInicioActividad().getMes() << "/"
+                 << vec[i].getInicioActividad().getAnio()
                  << setfill(' ') << endl;///establece char de relleno
                  }
         }
@@ -143,21 +196,21 @@ void MedicoManager::modificar(){
          << setw(15) << "Nombre"
          << setw(30) << "Email"
          << setw(15) << "Telefono"
-         << setw(10) << "Codigo"
-         << setw(12) << "Nacimiento"
+         << setw(15) << "Codigo esp."
+         << setw(15) << "Inicio act."
          << endl;
 
-    cout << string(95, '-') << endl;///barra separadora
+    cout << string(103, '-') << endl;///barra separadora
 
     cout << left ///establece alineacion
          << setw(15) << reg.getApellido()
          << setw(15) << reg.getNombre()
          << setw(30) << reg.getEmail()
          << setw(15) << reg.getTelefono()
-         << setw(10) << reg.getCodigoEspecialidad()
-         << reg.getFechaNacimiento().getDia() << "/"
-         << reg.getFechaNacimiento().getMes() << "/"
-         << reg.getFechaNacimiento().getAnio()
+         << setw(15) << reg.getCodigoEspecialidad()
+         << reg.getInicioActividad().getDia() << "/"
+         << reg.getInicioActividad().getMes() << "/"
+         << reg.getInicioActividad().getAnio()
          << setfill(' ') << endl;///establece char de relleno
 
 

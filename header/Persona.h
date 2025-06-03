@@ -29,6 +29,6 @@ class Persona{
         char _nombre[50];
         char _telefono[50];
         char _email[50];
-        bool _estado;
         FechaHora _fechaNacimiento;
+        bool _estado;
 };
