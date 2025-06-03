@@ -103,6 +103,7 @@ void Menu::menuMedico() {
         cout << "2 - Baja de medico\n";
         cout << "3 - Modificar medico\n";
         cout << "4 - Listar medicos\n";
+        cout << "5 - Buscar medico\n";
         cout << "0 - Volver al menu principal\n";
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
@@ -125,6 +126,10 @@ void Menu::menuMedico() {
             case 4:
                 cout << "\n\n";
                 obj.listar();
+                break;
+            case 5:
+                cout << "\n<Buscar medico>\n";
+                obj.buscar();
                 break;
             case 0:
                 cout << "Volviendo al menu principal...\n";

@@ -320,4 +320,42 @@ void MedicoManager::modificar(){
         }
     }
 
+void MedicoManager::buscar(){
+    Medico reg;
+    int dni;
+    int pos;
+
+    cout << "Ingrese el DNI del medico: ";
+    cin >> dni;
+    cin.ignore();
+
+    pos = archivo.getPosicion(dni);
+    if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
+
+    reg = archivo.leer(pos);
+
+    ///print de tabla
+    ///encabezado de columnas
+    cout << endl << left
+         << setw(15) << "Apellido"
+         << setw(15) << "Nombre"
+         << setw(30) << "Email"
+         << setw(15) << "Telefono"
+         << setw(15) << "Codigo esp."
+         << setw(15) << "Inicio act."
+         << endl;
+
+    cout << string(103, '-') << endl;///barra separadora
+
+    cout << left ///establece alineacion
+         << setw(15) << reg.getApellido()
+         << setw(15) << reg.getNombre()
+         << setw(30) << reg.getEmail()
+         << setw(15) << reg.getTelefono()
+         << setw(15) << reg.getCodigoEspecialidad()
+         << reg.getInicioActividad().getDia() << "/"
+         << reg.getInicioActividad().getMes() << "/"
+         << reg.getInicioActividad().getAnio()
+         << setfill(' ') << endl << endl;///establece char de relleno
+}
 
