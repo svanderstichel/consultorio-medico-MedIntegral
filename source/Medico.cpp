@@ -3,23 +3,23 @@
 
 ///constructores
 Medico::Medico():Persona(){
-    FechaHora fechaNacimiento;
+    FechaHora inicioActividad;
     setCodigoEspecialidad(0);
-    setFechaNacimiento(fechaNacimiento);
+    setInicioActividad(inicioActividad);
 }
 
 Medico::Medico(int dni,std::string apellido,std::string nombre,std::string telefono,std::string email,bool estado,
-               int codigoEspecialidad,FechaHora fechaNacimiento):Persona(dni,apellido,nombre,telefono,email,estado){
+               int codigoEspecialidad,FechaHora fechaNacimiento,FechaHora inicioActividad):Persona(dni,apellido,nombre,telefono,email,fechaNacimiento,estado){
                     setCodigoEspecialidad(codigoEspecialidad);
-                    setFechaNacimiento(fechaNacimiento);
+                    setInicioActividad(inicioActividad);
                }
 
 ///getters
 int Medico::getCodigoEspecialidad(){
     return _codigoEspecialidad;
 }
-FechaHora Medico::getFechaNacimiento(){
-    return _fechaNacimiento;
+FechaHora Medico::getInicioActividad(){
+    return _inicioActividad;
 }
 
 ///setters
@@ -31,7 +31,7 @@ bool Medico::setCodigoEspecialidad(int codigoEspecialidad){
     _codigoEspecialidad = codigoEspecialidad;
     return true;
 }
-bool Medico::setFechaNacimiento(FechaHora fechaNacimiento){
-    _fechaNacimiento = fechaNacimiento;
+bool Medico::setInicioActividad(FechaHora inicioActividad){
+    _inicioActividad = inicioActividad;
     return true;
 }

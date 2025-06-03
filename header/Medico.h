@@ -7,14 +7,14 @@ class Medico: public Persona{
     public:
         ///constructores
         Medico();
-        Medico(int dni,std::string apellido,std::string nombre,std::string telefono,std::string email,bool estado,int codigoEspecialidad,FechaHora fechaNacimiento);
+        Medico(int dni,std::string apellido,std::string nombre,std::string telefono,std::string email,bool estado,int codigoEspecialidad,FechaHora fechaNacimiento,FechaHora inicioActividad);
         ///getters
         int getCodigoEspecialidad();
-        FechaHora getFechaNacimiento();
+        FechaHora getInicioActividad();
         ///setters
         bool setCodigoEspecialidad(int codigoEspecialidad);
-        bool setFechaNacimiento(FechaHora fechaNacimiento);
+        bool setInicioActividad(FechaHora inicioActividad);
     private:
         int _codigoEspecialidad;
-        FechaHora _fechaNacimiento;
+        FechaHora _inicioActividad;
 };

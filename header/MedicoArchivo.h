@@ -18,4 +18,5 @@ class MedicoArchivo{
         bool escribir(int pos,Medico reg);
     private:
         char _nombreArchivo[50];
+        ///incluir tamañoRegistro sizeOf(Medico)
 };

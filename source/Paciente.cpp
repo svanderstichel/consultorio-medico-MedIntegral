@@ -3,22 +3,16 @@
 
 ///constructores
 Paciente::Paciente():Persona(){
-    FechaHora fechaNacimiento;
     setCodObraSocial(0);
-    setFechaNacimiento(fechaNacimiento);
 }
 
-Paciente::Paciente(int dni,std::string apellido,std::string nombre,std::string telefono,std::string email,bool estado, int codObraSocial,FechaHora fechaNacimiento):Persona(dni,apellido,nombre,telefono,email,estado){
+Paciente::Paciente(int dni,std::string apellido,std::string nombre,std::string telefono,std::string email,bool estado, int codObraSocial,FechaHora fechaNacimiento):Persona(dni,apellido,nombre,telefono,email,fechaNacimiento,estado){
     setCodObraSocial(codObraSocial);
-    setFechaNacimiento(fechaNacimiento);
 }
 
 ///getters
 int Paciente::getCodObraSocial(){
     return _codObraSocial;
-}
-FechaHora Paciente::getFechaNacimiento(){
-    return _fechaNacimiento;
 }
 
 ///setters
@@ -29,7 +23,3 @@ void Paciente::setCodObraSocial(int codObraSocial){
     }
     _codObraSocial = codObraSocial;
 }
-void Paciente::setFechaNacimiento(FechaHora fechaNacimiento){
-    _fechaNacimiento = fechaNacimiento;
-}
-

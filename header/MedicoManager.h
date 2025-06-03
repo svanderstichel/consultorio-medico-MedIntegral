@@ -4,6 +4,7 @@
 class MedicoManager{
     public:
         void alta();
+        ///cantidad maxima de reintentos o consultar al usuario
         void baja();
         void modificar();
         void listar();

@@ -4,20 +4,23 @@
 
 //constructores
 Persona::Persona(){
+    FechaHora fechaNacimiento;
     setDni(1000000);
     setApellido("");
     setNombre("");
     setTelefono("");
     setEmail("");
+    setFechaNacimiento(fechaNacimiento);
     setEstado(true);
 }
 
-Persona::Persona(int dni,std::string apellido,std::string nombre,std::string telefono,std::string email,bool estado){
+Persona::Persona(int dni,std::string apellido,std::string nombre,std::string telefono,std::string email,FechaHora fechaNacimiento,bool estado){
     setDni(dni);
     setApellido(apellido);
     setNombre(nombre);
     setTelefono(telefono);
     setEmail(email);
+    setFechaNacimiento(fechaNacimiento);
     setEstado(estado);
 }
 
@@ -36,6 +39,9 @@ std::string Persona::getTelefono(){
 }
 std::string Persona::getEmail(){
     return _email;
+}
+FechaHora Persona::getFechaNacimiento(){
+    return _fechaNacimiento;
 }
 bool Persona::getEstado(){
     return _estado;
@@ -87,3 +93,7 @@ bool Persona::setEmail(std::string email){
 void Persona::setEstado(bool estado){
     _estado = estado;
 }
+void Persona::setFechaNacimiento(FechaHora fechaNacimiento){
+    _fechaNacimiento = fechaNacimiento;
+}
+
