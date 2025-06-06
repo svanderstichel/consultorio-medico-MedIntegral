@@ -2,6 +2,7 @@
 #include "Menu.h"
 #include "PacienteManager.h"
 #include "MedicoManager.h"
+#include "Configuracion.h"
 
 using namespace std;
 
@@ -283,7 +284,43 @@ void Menu::menuReportes() {
 }
 
 void Menu::menuConfiguracion() {
-    system("cls");
-    cout << "---- CONFIGURACION ----\n";
-    system("pause");
+    Configuracion obj;
+    int opcion;
+    do {
+        system("cls");
+        cout << "================================\n";
+        cout << "\tMENU CONFIGURACION\n";
+        cout << "================================\n";
+        cout << "1 - Realizar copia de respaldo\n";
+        cout << "2 - Restaurar copia de respaldo\n";
+        cout << "3 - Recuperar registro eliminado\n";
+        cout << "4 - Exportar datos CSV\n";
+        cout << "0 - Volver al menu principal\n";
+        cout << "--------------------------------\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        cin.ignore();
+
+        switch (opcion) {
+            case 1:
+                obj.crearCopiaRespaldo();
+                break;
+            case 2:
+                obj.restaurarCopiaRespaldo();
+                break;
+            case 3:
+                cout << "\n<Recuperar regisro>\n";
+                obj.recuperarRegistro();
+                break;
+            case 4:
+                obj.exportarCSV();
+                break;
+            case 0:
+                cout << "Volviendo al menu principal...\n";
+                break;
+            default:
+                cout << "Opcion invalida. Intente nuevamente.\n";
+        }
+        system("pause");
+    } while (opcion != 0);
 }
