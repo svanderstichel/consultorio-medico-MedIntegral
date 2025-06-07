@@ -15,7 +15,7 @@ int TurnoArchivo::getPosicion(int idTurno){
     if(pFile==nullptr){return -1;}
 
     while(fread(&reg,sizeof(Turno),1,pFile)==1){
-        if(reg.getidTurno()==idTurno){
+        if(reg.getidTurno()==idTurno && reg.getEstado()){
             fclose(pFile);
             return pos;
         }

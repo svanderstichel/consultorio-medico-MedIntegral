@@ -8,7 +8,7 @@ class TurnoManager{
         void modificar();
         void listar();
         void buscar();
-        void alta(int dni);
+        void alta(int idTurno);
         void exportarCSV();
     private:
         TurnoArchivo archivo;
