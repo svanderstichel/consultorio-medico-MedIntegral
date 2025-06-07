@@ -3,6 +3,7 @@
 #include "PacienteManager.h"
 #include "MedicoManager.h"
 #include "EspecialidadManager.h"
+#include "Configuracion.h"
 
 using namespace std;
 
@@ -162,19 +163,19 @@ void Menu::menuTurno() {
         switch (opcion) {
             case 1:
                 cout << ">> ALTA de turno\n";
-                // Llamar a la función de alta aquí
+                // Llamar a la funciÃ³n de alta aquÃ­
                 break;
             case 2:
                 cout << ">> BAJA de turno\n";
-                // Llamar a la función de baja aquí
+                // Llamar a la funciÃ³n de baja aquÃ­
                 break;
             case 3:
                 cout << ">> MODIFICAR turno\n";
-                // Llamar a la función de modificar aquí
+                // Llamar a la funciÃ³n de modificar aquÃ­
                 break;
             case 4:
                 cout << ">> LISTAR turnos\n";
-                // Llamar a la función de listar aquí
+                // Llamar a la funciÃ³n de listar aquÃ­
                 break;
             case 0:
                 cout << "Volviendo al menu principal...\n";
@@ -207,19 +208,19 @@ void Menu::menuObraSocial() {
         switch (opcion) {
             case 1:
                 cout << ">> ALTA de obra social\n";
-                // Llamar a la función de alta aquí
+                // Llamar a la funciÃ³n de alta aquÃ­
                 break;
             case 2:
                 cout << ">> BAJA de obra social\n";
-                // Llamar a la función de baja aquí
+                // Llamar a la funciÃ³n de baja aquÃ­
                 break;
             case 3:
                 cout << ">> MODIFICAR obra social\n";
-                // Llamar a la función de modificar aquí
+                // Llamar a la funciÃ³n de modificar aquÃ­
                 break;
             case 4:
                 cout << ">> LISTAR obras sociales\n";
-                // Llamar a la función de listar aquí
+                // Llamar a la funciÃ³n de listar aquÃ­
                 break;
             case 0:
                 cout << "Volviendo al menu principal...\n";
@@ -290,7 +291,43 @@ void Menu::menuReportes() {
 }
 
 void Menu::menuConfiguracion() {
-    system("cls");
-    cout << "---- CONFIGURACION ----\n";
-    system("pause");
+    Configuracion obj;
+    int opcion;
+    do {
+        system("cls");
+        cout << "================================\n";
+        cout << "\tMENU CONFIGURACION\n";
+        cout << "================================\n";
+        cout << "1 - Realizar copia de respaldo\n";
+        cout << "2 - Restaurar copia de respaldo\n";
+        cout << "3 - Recuperar registro eliminado\n";
+        cout << "4 - Exportar datos CSV\n";
+        cout << "0 - Volver al menu principal\n";
+        cout << "--------------------------------\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        cin.ignore();
+
+        switch (opcion) {
+            case 1:
+                obj.crearCopiaRespaldo();
+                break;
+            case 2:
+                obj.restaurarCopiaRespaldo();
+                break;
+            case 3:
+                cout << "\n<Recuperar regisro>\n";
+                obj.recuperarRegistro();
+                break;
+            case 4:
+                obj.exportarCSV();
+                break;
+            case 0:
+                cout << "Volviendo al menu principal...\n";
+                break;
+            default:
+                cout << "Opcion invalida. Intente nuevamente.\n";
+        }
+        system("pause");
+    } while (opcion != 0);
 }

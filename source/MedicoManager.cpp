@@ -359,3 +359,44 @@ void MedicoManager::buscar(){
          << setfill(' ') << endl << endl;///establece char de relleno
 }
 
+void MedicoManager::alta(int dni){
+    Medico reg;
+    int pos;
+
+    pos = archivo.getPosicion(dni);
+    if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
+
+    if(pos!=-1){
+    reg = archivo.leer(pos);
+    reg.setEstado(true);
+    if(archivo.escribir(pos,reg)){cout << "\nRegistro recuperado correctamente.\n";}
+    else{cout << "\nSe produjo un error de escritura en disco.\n";}}
+}
+
+void MedicoManager::exportarCSV(){
+    int cantReg = archivo.getCantidadRegistros();
+    Medico *vec;
+
+    if(cantReg<=0){cout <<"No se registran medicos activos.\n";return;}
+
+    vec = new Medico[cantReg];
+    if(vec==nullptr){cout <<"\nSe produjo un error de asignacion de memoria.\n";return;}
+
+    archivo.leer(cantReg,vec);
+
+    cout << "dni,apellido,nombre,email,telefono,cod_especialidad,fecha_nacimiento,inicio_actividad\n";
+    for(int i=0;i<cantReg;i++){
+        if(vec[i].getEstado()){
+        cout << vec[i].getDni() << ",";
+        cout << vec[i].getApellido() << ",";
+        cout << vec[i].getNombre() << ",";
+        cout << vec[i].getEmail() << ",";
+        cout << vec[i].getTelefono() << ",";
+        cout << vec[i].getCodigoEspecialidad() << ",";
+        cout << vec[i].getFechaNacimiento().getDia() << "/";
+        cout << vec[i].getFechaNacimiento().getMes() << "/";
+        cout << vec[i].getFechaNacimiento().getAnio() << ",";
+        cout << vec[i].getInicioActividad().getDia() << "/";
+        cout << vec[i].getInicioActividad().getMes() << "/";
+        cout << vec[i].getInicioActividad().getAnio() << "\n";}}
+}
