@@ -2,6 +2,7 @@
 #include "Menu.h"
 #include "PacienteManager.h"
 #include "MedicoManager.h"
+#include "EspecialidadManager.h"
 #include "Configuracion.h"
 
 using namespace std;
@@ -162,19 +163,19 @@ void Menu::menuTurno() {
         switch (opcion) {
             case 1:
                 cout << ">> ALTA de turno\n";
-                // Llamar a la función de alta aquí
+                // Llamar a la funciÃ³n de alta aquÃ­
                 break;
             case 2:
                 cout << ">> BAJA de turno\n";
-                // Llamar a la función de baja aquí
+                // Llamar a la funciÃ³n de baja aquÃ­
                 break;
             case 3:
                 cout << ">> MODIFICAR turno\n";
-                // Llamar a la función de modificar aquí
+                // Llamar a la funciÃ³n de modificar aquÃ­
                 break;
             case 4:
                 cout << ">> LISTAR turnos\n";
-                // Llamar a la función de listar aquí
+                // Llamar a la funciÃ³n de listar aquÃ­
                 break;
             case 0:
                 cout << "Volviendo al menu principal...\n";
@@ -207,19 +208,19 @@ void Menu::menuObraSocial() {
         switch (opcion) {
             case 1:
                 cout << ">> ALTA de obra social\n";
-                // Llamar a la función de alta aquí
+                // Llamar a la funciÃ³n de alta aquÃ­
                 break;
             case 2:
                 cout << ">> BAJA de obra social\n";
-                // Llamar a la función de baja aquí
+                // Llamar a la funciÃ³n de baja aquÃ­
                 break;
             case 3:
                 cout << ">> MODIFICAR obra social\n";
-                // Llamar a la función de modificar aquí
+                // Llamar a la funciÃ³n de modificar aquÃ­
                 break;
             case 4:
                 cout << ">> LISTAR obras sociales\n";
-                // Llamar a la función de listar aquí
+                // Llamar a la funciÃ³n de listar aquÃ­
                 break;
             case 0:
                 cout << "Volviendo al menu principal...\n";
@@ -233,16 +234,18 @@ void Menu::menuObraSocial() {
 
 
 void Menu::menuEspecialidad() {
+    EspecialidadManager obj;
     int opcion;
     do {
         system("cls");
         cout << "================================\n";
         cout << "\tMENU ESPECIALIDADES \n";
         cout << "================================\n";
-        cout << "1 - Alta de especialidad\n";
-        cout << "2 - Baja de especialidad\n";
-        cout << "3 - Modificar especialidad\n";
-        cout << "4 - Listar especialidades\n";
+        cout << "1 - Nueva especialidad\n";
+        cout << "2 - Activar especialidades\n";
+        cout << "3 - Baja de especialidad\n";
+        cout << "4 - Modificar especialidad\n";
+        cout << "5 - Listar especialidades\n";
         cout << "0 - Volver al menu principal\n";
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
@@ -251,20 +254,24 @@ void Menu::menuEspecialidad() {
 
         switch (opcion) {
             case 1:
-                cout << ">> ALTA de especialidad\n";
-                // Llamar a la función de alta aquí
+                cout << ">> NUEVA especialidad\n";
+                obj.altaEspecialidad();
                 break;
             case 2:
-                cout << ">> BAJA de especialidad\n";
-                // Llamar a la función de baja aquí
+                cout << ">> COMENTADA- ACTIVAR especialidades\n";
+                //obj.activarEspecialidad();
                 break;
             case 3:
-                cout << ">> MODIFICAR especialidad\n";
-                // Llamar a la función de modificar aquí
+                cout << ">> BAJA de especialidad\n";
+                obj.bajaEspecialidad();
                 break;
             case 4:
+                cout << ">> MODIFICAR especialidad\n";
+                obj.modificarEspecialidad();
+                break;
+            case 5:
                 cout << ">> LISTAR especialidades\n";
-                // Llamar a la función de listar aquí
+                obj.listarEspecialidad();
                 break;
             case 0:
                 cout << "Volviendo al menu principal...\n";
