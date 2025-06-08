@@ -155,6 +155,7 @@ void Menu::menuTurno() {
         cout << "2 - Baja de turno\n";
         cout << "3 - Modificar turno\n";
         cout << "4 - Listar turnos\n";
+        cout << "5 - Buscar turno\n";
         cout << "0 - Volver al menu principal\n";
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
@@ -177,6 +178,10 @@ void Menu::menuTurno() {
             case 4:
                 cout << "\n<Listar turnos>\n";
                 manager.listar();
+                break;
+            case 5:
+                cout << "\n<Buscar turno>\n";
+                manager.buscar();
                 break;
             case 0:
                 cout << "\nVolviendo al menu principal...\n";
