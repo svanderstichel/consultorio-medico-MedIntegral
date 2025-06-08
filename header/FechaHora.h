@@ -12,6 +12,9 @@ class FechaHora{
         int getMes();
         int getAnio();
         int getHora();
+        ///sobrecarga de operador de igualdad
+        bool operator==(FechaHora &source);
+        bool operator!=(FechaHora &source);
     private:
         int _dia;
         int _mes;

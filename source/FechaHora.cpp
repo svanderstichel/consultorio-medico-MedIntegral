@@ -80,3 +80,22 @@ void FechaHora::cargarHora(){
 
     _hora = hora;
 }
+
+bool FechaHora::operator==(FechaHora &source){
+    if(
+    getHora()==source.getHora() &&
+    getDia()==source.getDia() &&
+    getMes()==source.getMes() &&
+    getAnio()==source.getAnio()
+    ){return true;}
+    return false;
+}
+bool FechaHora::operator!=(FechaHora &source){
+    if(
+    getHora()!=source.getHora() ||
+    getDia()!=source.getDia() ||
+    getMes()!=source.getMes() ||
+    getAnio()!=source.getAnio()
+    ){return true;}
+    return false;
+}

@@ -2,6 +2,7 @@
 #include "Menu.h"
 #include "PacienteManager.h"
 #include "MedicoManager.h"
+#include "TurnoManager.h"
 #include "EspecialidadManager.h"
 #include "Configuracion.h"
 
@@ -144,6 +145,7 @@ void Menu::menuMedico() {
 }
 
 void Menu::menuTurno() {
+    TurnoManager manager;
     int opcion;
     do {
         system("cls");
@@ -154,6 +156,7 @@ void Menu::menuTurno() {
         cout << "2 - Baja de turno\n";
         cout << "3 - Modificar turno\n";
         cout << "4 - Listar turnos\n";
+        cout << "5 - Buscar turno\n";
         cout << "0 - Volver al menu principal\n";
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
@@ -162,26 +165,30 @@ void Menu::menuTurno() {
 
         switch (opcion) {
             case 1:
-                cout << ">> ALTA de turno\n";
-                // Llamar a la función de alta aquí
+                cout << "\n<Alta de turno>\n";
+                manager.alta();
                 break;
             case 2:
-                cout << ">> BAJA de turno\n";
-                // Llamar a la función de baja aquí
+                cout << "\n<Baja de turno>\n";
+                manager.baja();
                 break;
             case 3:
-                cout << ">> MODIFICAR turno\n";
-                // Llamar a la función de modificar aquí
+                cout << "\n<Modificar turno>\n";
+                manager.modificar();
                 break;
             case 4:
-                cout << ">> LISTAR turnos\n";
-                // Llamar a la función de listar aquí
+                cout << "\n<Listar turnos>\n";
+                manager.listar();
+                break;
+            case 5:
+                cout << "\n<Buscar turno>\n";
+                manager.buscar();
                 break;
             case 0:
-                cout << "Volviendo al menu principal...\n";
+                cout << "\nVolviendo al menu principal...\n";
                 break;
             default:
-                cout << "Opcion invalida. Intente nuevamente.\n";
+                cout << "\nOpcion invalida. Intente nuevamente.\n";
         }
         system("pause");
     } while (opcion != 0);
