@@ -2,6 +2,8 @@
 #include "Menu.h"
 #include "PacienteManager.h"
 #include "MedicoManager.h"
+#include "ObraSocialManager.h"
+
 
 using namespace std;
 
@@ -187,6 +189,7 @@ void Menu::menuTurno() {
 
 
 void Menu::menuObraSocial() {
+    ObraSocialManager obj;
     int opcion;
     do {
         system("cls");
@@ -206,19 +209,19 @@ void Menu::menuObraSocial() {
         switch (opcion) {
             case 1:
                 cout << ">> ALTA de obra social\n";
-                // Llamar a la función de alta aquí
+                obj.altaObraSocial();
                 break;
             case 2:
                 cout << ">> BAJA de obra social\n";
-                // Llamar a la función de baja aquí
+                obj.bajaObraSocial();
                 break;
             case 3:
                 cout << ">> MODIFICAR obra social\n";
-                // Llamar a la función de modificar aquí
+                obj.modificarObraSocial();
                 break;
             case 4:
                 cout << ">> LISTAR obras sociales\n";
-                // Llamar a la función de listar aquí
+                obj.listarObraSocial();
                 break;
             case 0:
                 cout << "Volviendo al menu principal...\n";
