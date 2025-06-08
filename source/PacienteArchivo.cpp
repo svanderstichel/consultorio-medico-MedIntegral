@@ -14,7 +14,7 @@ int PacienteArchivo::getPosicion(int dni){
     if(pFile==nullptr){return -1;}
 
     while(fread(&reg,sizeof(Paciente),1,pFile)==1){
-        if(reg.getDni()==dni){
+        if(reg.getDni()==dni && reg.getEstado()){
             fclose(pFile);
             return pos;
         }

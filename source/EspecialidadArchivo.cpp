@@ -14,7 +14,7 @@ int EspecialidadArchivo::getPosicion(int codEspecialidad){
     if(pFile==nullptr){return -1;}
 
     while(fread(&reg,sizeof(Especialidad),1,pFile)==1){
-        if(reg.getCodEspecialidad()==codEspecialidad){
+        if(reg.getCodEspecialidad()==codEspecialidad && reg.getEstado()){
             fclose(pFile);
             return pos;
         }
