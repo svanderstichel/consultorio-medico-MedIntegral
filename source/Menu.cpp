@@ -249,10 +249,9 @@ void Menu::menuEspecialidad() {
         cout << "\tMENU ESPECIALIDADES \n";
         cout << "================================\n";
         cout << "1 - Nueva especialidad\n";
-        cout << "2 - Activar especialidades\n";
-        cout << "3 - Baja de especialidad\n";
-        cout << "4 - Modificar especialidad\n";
-        cout << "5 - Listar especialidades\n";
+        cout << "2 - Baja de especialidad\n";
+        cout << "3 - Modificar especialidad\n";
+        cout << "4 - Listar especialidades\n";
         cout << "0 - Volver al menu principal\n";
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
@@ -261,23 +260,19 @@ void Menu::menuEspecialidad() {
 
         switch (opcion) {
             case 1:
-                cout << ">> NUEVA especialidad\n";
+                cout << "<Nueva especialidad>\n";
                 obj.altaEspecialidad();
                 break;
             case 2:
-                cout << ">> COMENTADA- ACTIVAR especialidades\n";
-                //obj.activarEspecialidad();
-                break;
-            case 3:
-                cout << ">> BAJA de especialidad\n";
+                cout << "<Baja especialidad>\n";
                 obj.bajaEspecialidad();
                 break;
-            case 4:
-                cout << ">> MODIFICAR especialidad\n";
+            case 3:
+                cout << "<Modificar especialidad>\n";
                 obj.modificarEspecialidad();
                 break;
-            case 5:
-                cout << ">> LISTAR especialidades\n";
+            case 4:
+                cout << "<Listar especialidades>\n";
                 obj.listarEspecialidad();
                 break;
             case 0:

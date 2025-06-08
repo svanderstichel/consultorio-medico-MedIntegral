@@ -12,63 +12,25 @@ void EspecialidadManager::altaEspecialidad() {
     std::string nombre;
     Especialidad reg;
 
-    // Ingreso de código, validando existencia y tipo
-    while (true) {
-        cout << "Ingresar codigo de Especialidad: ";
-        cin >> codEspecialidad;
+    ///asignacion de id autoincremental
+    codEspecialidad=archivo.getCantidadRegistros()+1;
+    ///inicializa el primer id en 1
+    if(codEspecialidad==0){codEspecialidad++;}
+    reg.setCodEspecialidad(codEspecialidad);
 
-        // Validar si se ingresó un número
-        if (cin.fail()) {
-            cout << "\nError. Debe ingresar un numero.\n";
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            continue;
-        }
+    cout << "Ingresar Nombre: ";
+    getline(cin, nombre);
 
-        cin.ignore();
+    if (nombre.empty()) {
+        cout << "Error. Nombre vacio. Intente nuevamente.\n";
+        return;}
 
-        // Validar número positivo
-        if (codEspecialidad <= 0) {
-            cout << "\nEl codigo debe ser un numero positivo.\n";
-            continue;
-        }
-
-        // Validar código no existente
-        if (archivo.getPosicion(codEspecialidad) != -1) {
-            cout << "\nLa especialidad ya se encuentra registrada. Ingresar nuevo codigo.\n";
-            continue;
-        }
-
-        // Código válido
-        reg.setCodEspecialidad(codEspecialidad);
-        break;
-    }
-
-    // Ingreso del nombre, validando longitud y que no esté vacío
-    while (true) {
-        cout << "Ingresar Nombre: ";
-        getline(cin, nombre);
-
-        // Verificar nombre no vacío
-        if (nombre.empty()) {
-            cout << "Error. Nombre vacio. Intente nuevamente.\n";
-            continue;
-        }
-
-        // Verificar longitud válida (en tu clase, el límite es 50)
-        if (!reg.setNombre(nombre)) {
-            cout << "El nombre es demasiado largo. Intente nuevamente.\n";
-            continue;
-        }
-
-        break;
-    }
-
-    // Activar y guardar
-    reg.setEstado(true);
+    if (!reg.setNombre(nombre)){
+        cout << "El nombre es demasiado largo. Intente nuevamente.\n";
+        return;}
 
     if (archivo.escribir(reg)) {
-        cout << "\n¡Especialidad cargada correctamente!\n";
+        cout << "\nEspecialidad cargada correctamente.\n";
     } else {
         cout << "\nSe produjo un error de escritura en disco.\n";
     }
@@ -99,65 +61,37 @@ void EspecialidadManager::modificarEspecialidad() {
     string nombre;
     int codEspecialidad, pos;
 
-    // Bucle para pedir un codigo valido
-    while (true) {
-        cout << "\nIngresar codigo a modificar (0 para cancelar): ";
-        cin >> codEspecialidad;
+    cout << "\nIngresar codigo de especialidad a modificar (0 para cancelar): ";
+    cin >> codEspecialidad;
+    cin.ignore();
 
-        // Validar entrada
-        if (cin.fail()) {
-            cout << "Error. Debe ingresar un numero.\n";
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            continue;
-        }
+    if (codEspecialidad == 0) {
+        cout << "Operación cancelada por el usuario.\n";
+        return;}
 
-        cin.ignore();
+    pos = archivo.getPosicion(codEspecialidad);
+    if (pos == -1) {
+        cout << "El codigo no existe.\n";
+        cout << "Especialidades disponibles:\n\n\n";
+        listarEspecialidad();
+        return;}
 
-        if (codEspecialidad == 0) {
-            cout << "Operación cancelada por el usuario.\n";
-            return;
-        }
 
-        if (codEspecialidad < 0) {
-            cout << "El codigo debe ser positivo.\n";
-            continue;
-        }
-
-        // Buscar el código
-        pos = archivo.getPosicion(codEspecialidad);
-        if (pos == -1) {
-            cout << "El codigo no existe.\n";
-            cout << "Especialidades disponibles:\n";
-            listarEspecialidad();  // ← Mostrar al usuario los códigos válidos
-            continue;
-        }
-
-        break;  // Código válido y existe
-    }
-
-    // Leer el registro y mostrar su estado actual
     reg = archivo.leer(pos);
     cout << "\nNombre actual: " << reg.getNombre() << endl;
 
-    // Pedir nuevo nombre validado
-    while (true) {
-        cout << "Ingresar nuevo nombre de especialidad: ";
-        getline(cin, nombre);
 
-        if (nombre.empty()) {
-            cout << "El nombre no puede estar vacio.\n";
-            continue;
-        }
+    cout << "Ingresar nuevo nombre de especialidad: ";
+    getline(cin, nombre);
 
-        if (!reg.setNombre(nombre)) {
-            cout << "Error. Nombre demasiado largo. Intente nuevamente.\n";
-            continue;
-        }
-        break;
-    }
+    if (nombre.empty()) {
+        cout << "El nombre no puede estar vacio.\n";
+        return;}
 
-    // Guardar
+    if (!reg.setNombre(nombre)) {
+        cout << "Error. Nombre demasiado largo. Intente nuevamente.\n";
+        return;}
+
     if (archivo.escribir(pos, reg)) {
         cout << "\nRegistro modificado correctamente.\n";
     } else {
@@ -176,23 +110,21 @@ int cantReg = archivo.getCantidadRegistros();
 
     archivo.leer(cantReg,vec);
 
+    cout << endl;
     cout << left
-         << setw(12) << "Codigo"
-         << setw(15) << "Especialidad"
+         << setw(7) << "Codigo"
+         << setw(13) << "Especialidad"
          << endl;
 
-    cout << string(60, '-') << endl;///barra separadora
-
+    cout << "======+=============" << endl;///barra separadora
 
     for (int i = 0; i < cantReg; i++) {
         if (vec[i].getEstado()) {
             cout << left ///establece alineacion
-                << setw(12) << vec[i].getCodEspecialidad()
-                << setw(15) << vec[i].getNombre()
-                << setfill(' ') << endl;///establece char de relleno
-        }
-
-    }
+                << setw(7) << vec[i].getCodEspecialidad()
+                << setw(13) << vec[i].getNombre()
+                << setfill(' ') << endl;}}///establece char de relleno
+    cout << endl;
     delete[] vec;
 }
 /*void EspecialidadManager::activarEspecialidad(){
