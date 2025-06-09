@@ -15,8 +15,8 @@ void Configuracion::crearCopiaRespaldo(){
     cout << "1 - medicos.dat\n";
     cout << "2 - pacientes.dat\n";
     cout << "3 - turnos.dat\n";
-    cout << "4 - obrasocial.dat\n";
-    cout << "5 - especialidad.dat\n";
+    cout << "4 - obrassociales.dat\n";
+    cout << "5 - especialidades.dat\n";
     cout << "6 - respaldar todos\n";
     cout << "\n0 - Volver al menu anterior\n";
     cout << "---------------------------\n";
@@ -28,10 +28,54 @@ void Configuracion::crearCopiaRespaldo(){
         case 1:
             {
                 ConfiguracionArchivo archivo("medicos.dat");
-                if(archivo.crearCopia()){cout << "Copia de respaldo creada en el directorio /backup.\n\n";}
-                else{cout << "No se pudo generar la copia de respaldo.\n\n";}
+                if(archivo.crearCopia()){cout << "\n\nCopia de respaldo creada en el directorio /backup.\n\n";}
+                else{cout << "\n\nNo se pudo generar la copia de respaldo.\n\n";}
             }
             break;
+        case 2:
+        {
+            ConfiguracionArchivo archivo("pacientes.dat");
+            if(archivo.crearCopia()){cout << "\n\nCopia de respaldo creada en el directorio /backup.\n\n";}
+            else{cout << "\n\nNo se pudo generar la copia de respaldo.\n\n";}
+        }
+        break;
+            case 3:
+        {
+            ConfiguracionArchivo archivo("turnos.dat");
+            if(archivo.crearCopia()){cout << "\n\nCopia de respaldo creada en el directorio /backup.\n\n";}
+            else{cout << "\n\nNo se pudo generar la copia de respaldo.\n\n";}
+        }
+        break;
+            case 4:
+        {
+            ConfiguracionArchivo archivo("obrasocial.dat");
+            if(archivo.crearCopia()){cout << "\n\nCopia de respaldo creada en el directorio /backup.\n\n";}
+            else{cout << "\n\nNo se pudo generar la copia de respaldo.\n\n";}
+        }
+        break;
+            case 5:
+        {
+            ConfiguracionArchivo archivo("especialidad.dat");
+            if(archivo.crearCopia()){cout << "\n\nCopia de respaldo creada en el directorio /backup.\n\n";}
+            else{cout << "\n\nNo se pudo generar la copia de respaldo.\n\n";}
+        }
+        break;
+            case 6:
+        {
+            ConfiguracionArchivo archivoMedicos("medicos.dat");
+            ConfiguracionArchivo archivoPacientes("pacientes.dat");
+            ConfiguracionArchivo archivoTurnos("turnos.dat");
+            ConfiguracionArchivo archivoObrasocial("obrassociales.dat");
+            ConfiguracionArchivo archivoEspecialidades("especialidades.dat");
+            if(archivoMedicos.crearCopia() &&
+               archivoPacientes.crearCopia() &&
+               archivoObrasocial.crearCopia() &&
+               archivoEspecialidades.crearCopia() &&
+               archivoTurnos.crearCopia())
+            {cout << "\n\nCopia de respaldo creada en el directorio /backup.\n\n";}
+            else{cout << "\n\nNo se pudo generar la copia de respaldo.\n\n";}
+        }
+        break;
         default:
             break;}
 

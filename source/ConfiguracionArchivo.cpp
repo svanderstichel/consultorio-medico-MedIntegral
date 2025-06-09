@@ -13,7 +13,7 @@ bool ConfiguracionArchivo::crearCopia(){
     if(origen==nullptr){return 0;}
 
     ///definicion de directorio/archivo destino
-    std::string archivoDestino="/backup/";
+    std::string archivoDestino="backup/";
     archivoDestino+=_nombreArchivo;
 
     ///enlace con archivo destino
