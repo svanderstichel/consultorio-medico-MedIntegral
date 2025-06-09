@@ -12,27 +12,11 @@ void ObraSocialManager::altaObraSocial() {
     char nombre[50];  // reemplaza std::string
     int intentos = 0;
 
-    // Ingreso de código
-    while (reg.getCodigoObraSocial() == 0 && intentos <= 3) {
-        cout << "Ingrese codigo de obra social: ";
-        cin >> codigo;
-        cin.ignore();
-        reg.setCodigoObraSocial(codigo);
-        intentos++;
-    }
-
-    // Verificar existencia
-    if (archivo.getPosicion(codigo) != -1) {
-        cout << "\nEl codigo ya esta registrado.\n";
-        return;
-    }
-
-    if (intentos > 3) {
-        cout << "\nExcedio el limite de intentos.\n";
-        return;
-    } else {
-        intentos = 0;
-    }
+    ///asignacion de id autoincremental
+    codigo=archivo.getCantidadRegistros()+1;
+    ///inicializa el primer id en 1
+    if(codigo==0){codigo++;}
+    reg.setCodigoObraSocial(codigo);
 
     // Ingreso de nombre
     while (strlen(reg.getNombre()) == 0 && intentos <= 3) {
