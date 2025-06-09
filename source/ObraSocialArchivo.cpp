@@ -24,7 +24,7 @@ int ObraSocialArchivo::getPosicion(int codigo) {
     int pos = 0;
 
     while (fread(&reg, sizeof(ObraSocial), 1, pFile) == 1) {
-        if (reg.getCodigoObraSocial() == codigo) {
+        if (reg.getCodigoObraSocial() == codigo && reg.getEstado()) {
             fclose(pFile);
             return pos;
         }
