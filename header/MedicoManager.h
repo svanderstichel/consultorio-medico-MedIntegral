@@ -8,6 +8,8 @@ class MedicoManager{
         void modificar();
         void listar();
         void buscar();
+        void alta(int dni);
+        void exportarCSV();
     private:
         MedicoArchivo archivo;
 };

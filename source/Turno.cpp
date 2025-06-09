@@ -1,25 +1,28 @@
+#include <iostream>
 #include "Turno.h"
 #include "FechaHora.h"
+#include "MedicoArchivo.h"
+#include "PacienteArchivo.h"
 
 
 Turno::Turno()
 {
-    FechaHora fechaAtencion, horaAtencion;
+    FechaHora fechaHoraAtencion;
     setidTurno(0);
-    setDniPaciente(0);
-    setDniMedico(0);
-    setFechaAtencion(fechaAtencion);
-    setHoraAtencion(horaAtencion);
+    setDniPaciente(1000000);
+    setDniMedico(1000000);
     setImporteConsulta(0.0f);
+    setFechaHoraAtencion(fechaHoraAtencion);
+    setEstado(true);
 }
-Turno::Turno(int idTurno, int dniPaciente, int dniMedico, FechaHora fechaAtencion, FechaHora horaAtencion, float importeConsulta)
+Turno::Turno(int idTurno,int dniPaciente,int dniMedico,FechaHora fechaHoraAtencion,float importeConsulta,bool estado)
 {
     setidTurno(idTurno);
     setDniPaciente(dniPaciente);
     setDniMedico(dniMedico);
-    setFechaAtencion(fechaAtencion);
-    setHoraAtencion(horaAtencion);
     setImporteConsulta(importeConsulta);
+    setFechaHoraAtencion(fechaHoraAtencion);
+    setEstado(estado);
 }
 
 int Turno::getidTurno()
@@ -34,45 +37,55 @@ int Turno::getDniMedico()
 {
     return _dniMedico;
 }
-FechaHora Turno::getFechaAtencion()
+FechaHora Turno::getFechaHoraAtencion()
 {
-    return _fechaAtencion;
-}
-FechaHora Turno::getHoraAtencion()
-{
-    return _horaAtencion;
+    return _fechaHoraAtencion;
 }
 float Turno::getImporteConsulta()
 {
     return _importeConsulta;
+}
+bool Turno::getEstado(){
+    return _estado;
 }
 void Turno::setidTurno(int idTurno)
 {
     _idTurno = idTurno;
 }
 
-void Turno::setDniPaciente(int dniPaciente)
+bool Turno::setDniPaciente(int dniPaciente)
 {
+    PacienteArchivo archivo;
+    if(archivo.getPosicion(dniPaciente)==-1 && dniPaciente != 1000000){
+        std::cout << "\nDNI invalido, el paciente no se encuentra registrado en el sistema.\n";
+        return false;
+    }
     _dniPaciente = dniPaciente;
+    return true;
 }
 
-void Turno::setDniMedico(int dniMedico)
+bool Turno::setDniMedico(int dniMedico)
 {
+    MedicoArchivo archivo;
+    if(archivo.getPosicion(dniMedico)==-1 && dniMedico != 1000000){
+        std::cout << "\nDNI invalido, el medico no se encuentra registrado en el sistema.\n";
+        return false;
+    }
     _dniMedico = dniMedico;
+    return true;
 }
-
-void Turno::setFechaAtencion(FechaHora fechaAtencion)
+bool Turno::setImporteConsulta(float importeConsulta)
 {
-    _fechaAtencion = fechaAtencion;
-}
-
-void Turno::setHoraAtencion(FechaHora horaAtencion)
-{
-    _horaAtencion = horaAtencion;
-}
-
-void Turno::setImporteConsulta(float importeConsulta)
-{
+    if(importeConsulta<0 || importeConsulta>1000000){std::cout << "\nImporte invalido (fuera de rango).\n";return false;}
     _importeConsulta = importeConsulta;
+    return true;
+}
+void Turno::setFechaHoraAtencion(FechaHora fechaHoraAtencion)
+{
+    _fechaHoraAtencion = fechaHoraAtencion;
+}
+
+void Turno::setEstado(bool estado){
+    _estado=estado;
 }
 

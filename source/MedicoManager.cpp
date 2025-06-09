@@ -18,7 +18,7 @@ void MedicoManager::alta(){
 
     ///ingreso de datos
     ///cargar dni
-    while(reg.getDni()==1000000 && contadorIntentos<=3){
+    while(reg.getDni()==1000000 && contadorIntentos<3){
     cout << "Ingrese DNI: ";
     cin >> dni;
     cin.ignore();
@@ -30,60 +30,60 @@ void MedicoManager::alta(){
     {cout<<"\nEl DNI ya se encuentra registrado\n";return;}
 
     ///verificar limite de reintentos
-    if(contadorIntentos>3)
+    if(contadorIntentos==3)
     {cout<<"\nHas excedido el limite de reintentos.\n";return;}
     else{contadorIntentos=0;}
 
     ///carga de apellido
-    while(reg.getApellido()=="" && contadorIntentos<=3){
+    while(reg.getApellido()=="" && contadorIntentos<3){
     cout << "Ingrese Apellido: ";
     getline(cin, apellido);
     reg.setApellido(apellido);
     contadorIntentos++;}
 
     ///verificar limite de reintentos
-    if(contadorIntentos>3)
+    if(contadorIntentos==3)
     {cout<<"\nHas excedido el limite de reintentos.\n";return;}
     else{contadorIntentos=0;}
 
     ///carga de nombre
-    while(reg.getNombre()=="" && contadorIntentos<=3){
+    while(reg.getNombre()=="" && contadorIntentos<3){
     cout << "Ingrese Nombre: ";
     getline(cin, nombre);
     reg.setNombre(nombre);
     contadorIntentos++;}
 
     ///verificar limite de reintentos
-    if(contadorIntentos>3)
+    if(contadorIntentos==3)
     {cout<<"\nHas excedido el limite de reintentos.\n";return;}
     else{contadorIntentos=0;}
 
     ///carga de telefono
-    while(reg.getTelefono()=="" && contadorIntentos<=3){
+    while(reg.getTelefono()=="" && contadorIntentos<3){
     cout << "Ingrese Telefono: ";
     getline(cin, telefono);
     reg.setTelefono(telefono);
     contadorIntentos++;}
 
     ///verificar limite de reintentos
-    if(contadorIntentos>3)
+    if(contadorIntentos==3)
     {cout<<"\nHas excedido el limite de reintentos.\n";return;}
     else{contadorIntentos=0;}
 
     ///carga de email
-    while(reg.getEmail()=="" && contadorIntentos<=3){
+    while(reg.getEmail()=="" && contadorIntentos<3){
     cout << "Ingrese Email: ";
     getline(cin, email);
     reg.setEmail(email);
     contadorIntentos++;}
 
     ///verificar limite de reintentos
-    if(contadorIntentos>3)
+    if(contadorIntentos==3)
     {cout<<"\nHas excedido el limite de reintentos.\n";return;}
     else{contadorIntentos=0;}
 
     ///carga de codigo de especialidad
-    while(reg.getCodigoEspecialidad()==0 && contadorIntentos<=3){
+    while(reg.getCodigoEspecialidad()==0 && contadorIntentos<3){
     cout << "Ingrese Codigo de Especialidad: ";
     cin >> codigoEspecialidad;
     cin.ignore();
@@ -91,7 +91,7 @@ void MedicoManager::alta(){
     contadorIntentos++;}
 
     ///verificar limite de reintentos
-    if(contadorIntentos>3)
+    if(contadorIntentos==3)
     {cout<<"\nHas excedido el limite de reintentos.\n";return;}
     else{contadorIntentos=0;}
 
@@ -359,3 +359,44 @@ void MedicoManager::buscar(){
          << setfill(' ') << endl << endl;///establece char de relleno
 }
 
+void MedicoManager::alta(int dni){
+    Medico reg;
+    int pos;
+
+    pos = archivo.getPosicion(dni);
+    if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
+
+    if(pos!=-1){
+    reg = archivo.leer(pos);
+    reg.setEstado(true);
+    if(archivo.escribir(pos,reg)){cout << "\nRegistro recuperado correctamente.\n";}
+    else{cout << "\nSe produjo un error de escritura en disco.\n";}}
+}
+
+void MedicoManager::exportarCSV(){
+    int cantReg = archivo.getCantidadRegistros();
+    Medico *vec;
+
+    if(cantReg<=0){cout <<"No se registran medicos activos.\n";return;}
+
+    vec = new Medico[cantReg];
+    if(vec==nullptr){cout <<"\nSe produjo un error de asignacion de memoria.\n";return;}
+
+    archivo.leer(cantReg,vec);
+
+    cout << "dni,apellido,nombre,email,telefono,cod_especialidad,fecha_nacimiento,inicio_actividad\n";
+    for(int i=0;i<cantReg;i++){
+        if(vec[i].getEstado()){
+        cout << vec[i].getDni() << ",";
+        cout << vec[i].getApellido() << ",";
+        cout << vec[i].getNombre() << ",";
+        cout << vec[i].getEmail() << ",";
+        cout << vec[i].getTelefono() << ",";
+        cout << vec[i].getCodigoEspecialidad() << ",";
+        cout << vec[i].getFechaNacimiento().getDia() << "/";
+        cout << vec[i].getFechaNacimiento().getMes() << "/";
+        cout << vec[i].getFechaNacimiento().getAnio() << ",";
+        cout << vec[i].getInicioActividad().getDia() << "/";
+        cout << vec[i].getInicioActividad().getMes() << "/";
+        cout << vec[i].getInicioActividad().getAnio() << "\n";}}
+}
