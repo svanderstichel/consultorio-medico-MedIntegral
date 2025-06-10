@@ -4,53 +4,86 @@
 #include "Paciente.h"
 #include "PacienteManager.h"
 #include "FechaHora.h"
+#include "ObraSocialManager.h"
 
 using namespace std;
 
 
 void PacienteManager::altaPaciente(){
 
-    int dni,codObraSocial;
+    int dni,codObraSocial, pos;
     string apellido,nombre,telefono,email;
     FechaHora fechaNacimiento;
     Paciente reg;
+    ObraSocialManager obj;
 
     while(reg.getDni()==1000000){
-    cout << "Ingrese DNI: ";
+    cout << "Ingrese DNI: (0 para cancelar)\n";
     cin >> dni;
     cin.ignore();
+
+    if (dni == 0) {
+        cout << "Operacion cancelada por el usuario.\n";
+        return;}
+
     reg.setDni(dni);}
 
     if(archivo.getPosicion(dni)!=-1)
     {cout<<"\nEl DNI ya se encuentra registrado\n";return;}
 
     while(reg.getApellido()==""){
-    cout << "Ingrese Apellido: ";
+    cout << "Ingrese Apellido: (0 para cancelar)\n";
     getline(cin, apellido);
+
+    if (apellido == "0") {
+        cout << "Operacion cancelada por el usuario.\n";
+        return;}
+
     reg.setApellido(apellido);}
 
     while(reg.getNombre()==""){
-    cout << "Ingrese Nombre: ";
+    cout << "Ingrese Nombre: (0 para cancelar)\n";
     getline(cin, nombre);
+
+    if (nombre == "0") {
+        cout << "Operacion cancelada por el usuario.\n";
+        return;}
+
     reg.setNombre(nombre);}
 
     while(reg.getTelefono()==""){
-    cout << "Ingrese Telefono: ";
+    cout << "Ingrese Telefono: (0 para cancelar)\n";
     getline(cin, telefono);
+
+    if (telefono == "0") {
+        cout << "Operacion cancelada por el usuario.\n";
+        return;}
+
     reg.setTelefono(telefono);}
 
     while(reg.getEmail()==""){
-    cout << "Ingrese Email: ";
+    cout << "Ingrese Email: (0 para cancelar)\n";
     getline(cin, email);
+
+    if (email == "0") {
+        cout << "Operacion cancelada por el usuario.\n";
+        return;}
+
     reg.setEmail(email);}
 
     while(reg.getCodObraSocial()==0){
-    cout << "Ingrese Codigo de Obra Social: ";
+    cout << "Ingrese Codigo de Obra Social: (0 para listar)\n";
     cin >> codObraSocial;
     cin.ignore();
+
+    if (codObraSocial == 0) {
+        cout << "Obras sociales disponibles:\n\n\n";
+        obj.listarObraSocial();
+        }
+
     reg.setCodObraSocial(codObraSocial);}
 
-    cout << "Fecha de Nacimiento\n";
+    cout << "Fecha de Nacimiento:\n";
     fechaNacimiento.cargarFecha();
     reg.setFechaNacimiento(fechaNacimiento);
 
@@ -79,14 +112,21 @@ void PacienteManager::bajaPaciente(){
 void PacienteManager::modificarPAciente(){
     Paciente reg;
     int dni, pos, opc;
+    ObraSocialManager obj;
+    PacienteManager pac;
 
     cout << "\nIngrese el DNI del paciente: ";
     cin >> dni;
     cin.ignore();
 
     pos = archivo.getPosicion(dni);
-    if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
-
+    while(pos==-1){
+        cout << "\nEl registro no existe en el disco.\n";
+        pac.listarPaciente();
+        cin >> dni;
+        cin.ignore();
+        pos = archivo.getPosicion(dni);
+    }
     if(pos!=-1){
     reg = archivo.leer(pos);
 
@@ -115,15 +155,19 @@ void PacienteManager::modificarPAciente(){
          << setfill(' ') << endl;///establece char de relleno
 
 
+    cout << "\nIndique el atributo a modificar: " << endl;
     cout << "\n1 - Apellido";
     cout << "\n2 - Nombre";
     cout << "\n3 - Email";
     cout << "\n4 - Telefono";
     cout << "\n5 - Codigo OS";
-    cout << "\n6 - Fecha de nacimiento";
-    cout << "\nIndique el atributo a modificar: ";
+    cout << "\n6 - Fecha de nacimiento" << endl;
     cin >> opc;
-    cin.ignore();
+    while(opc>6){
+        cout << "Opcion no valida. Ingrese nuevamente." << endl;
+        cin >> opc;
+        cin.ignore();
+    }
 
     switch(opc){
     case 1:{
@@ -186,6 +230,9 @@ void PacienteManager::modificarPAciente(){
 
         break;}
     case 5:
+        cout << "Obra social actual: " << reg.getCodObraSocial() << endl;
+        cout << "Obras sociales disponibles:\n\n\n";
+        obj.listarObraSocial();
         {int codObraSocial = reg.getCodObraSocial();
 
         do{
