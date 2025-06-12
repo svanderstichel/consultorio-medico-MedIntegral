@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "FechaHora.h"
 
 using namespace std;
@@ -32,7 +33,13 @@ void FechaHora::cargarFecha(){
     while(dia<1 || dia>31){
         cout << "Ingrese dia: ";
         cin >> dia;
-        cin.ignore();
+
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout << "\nEntrada invalida.\n";}
+        else{
+            cin.ignore();}
 
         if(dia<1 || dia>31){
             cout << "Dia invalido (fuera de rango).\n";
@@ -44,7 +51,13 @@ void FechaHora::cargarFecha(){
     while(mes<1 || mes>12){
         cout << "Ingrese mes: ";
         cin >> mes;
-        cin.ignore();
+
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout << "\nEntrada invalida.\n";}
+        else{
+            cin.ignore();}
 
         if(mes<1 || mes>12){
             cout << "Mes invalido (fuera de rango).\n";
@@ -56,7 +69,13 @@ void FechaHora::cargarFecha(){
     while(anio<1900 || anio>2050){
         cout << "Ingrese anio: ";
         cin >> anio;
-        cin.ignore();
+
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout << "\nEntrada invalida.\n";}
+        else{
+            cin.ignore();}
 
         if(anio<1900 || anio>2050){
             cout << "Anio invalido (fuera de rango).\n";
@@ -71,7 +90,13 @@ void FechaHora::cargarHora(){
     while(hora<0 || hora>23){
         cout << "Ingrese hora (formato 0-23): ";
         cin >> hora;
-        cin.ignore();
+
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout << "\nEntrada invalida.\n";}
+        else{
+            cin.ignore();}
 
         if(hora<0 || hora>23){
             cout << "Hora invalida (fuera de rango).\n";
