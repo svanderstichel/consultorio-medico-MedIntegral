@@ -10,7 +10,7 @@ ObraSocial::ObraSocial() {
 }
 
 /// Constructor con parámetros
-ObraSocial::ObraSocial(int codigo, const char* nombre, bool estado) {
+ObraSocial::ObraSocial(int codigo, std::string nombre, bool estado) {
     setCodigoObraSocial(codigo);
     setNombre(nombre);
     setEstado(estado);
@@ -26,12 +26,14 @@ bool ObraSocial::setCodigoObraSocial(int codigo) {
     return true;
 }
 
-bool ObraSocial::setNombre(const char* nombre) {
-    if (strlen(nombre) == 0) {
-        std::cout << "Nombre de obra social no puede estar vacío.\n";
-        return false;
-    }
-    strcpy(_nombre, nombre);
+bool ObraSocial::setNombre(std::string nombre) {
+    if (nombre.size() == 0){
+        std::cout << "Nombre de obra social no puede estar vacio.\n";
+        return false;}
+    if(nombre.size()+1>50){
+        std::cout << "Caracteres maximos excedidos (50).\n";
+        return false;}
+    strcpy(_nombre,nombre.c_str());
     return true;
 }
 
@@ -44,7 +46,7 @@ int ObraSocial::getCodigoObraSocial() {
     return _codigoObraSocial;
 }
 
-const char* ObraSocial::getNombre() {
+std::string ObraSocial::getNombre() {
     return _nombre;
 }
 
