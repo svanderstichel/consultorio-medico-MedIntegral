@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "Menu.h"
 #include "PacienteManager.h"
 #include "MedicoManager.h"
@@ -27,7 +28,11 @@ void Menu::menuPrincipal(){
         cout << "--------------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
          switch (opcion) {
             case 1: menuPaciente(); break;
@@ -65,7 +70,11 @@ void Menu::menuPaciente() {
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
         switch (opcion) {
             case 1:
@@ -112,7 +121,11 @@ void Menu::menuMedico() {
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
         switch (opcion) {
             case 1:
@@ -162,7 +175,11 @@ void Menu::menuTurno() {
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
         switch (opcion) {
             case 1:
@@ -212,7 +229,11 @@ void Menu::menuObraSocial() {
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
         switch (opcion) {
             case 1:
@@ -258,7 +279,11 @@ void Menu::menuEspecialidad() {
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
         switch (opcion) {
             case 1:
@@ -310,7 +335,11 @@ void Menu::menuConfiguracion() {
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
         switch (opcion) {
             case 1:

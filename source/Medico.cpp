@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Medico.h"
+#include "EspecialidadArchivo.h"
 
 ///constructores
 Medico::Medico():Persona(){
@@ -24,8 +25,9 @@ FechaHora Medico::getInicioActividad(){
 
 ///setters
 bool Medico::setCodigoEspecialidad(int codigoEspecialidad){
-    if(codigoEspecialidad<0 || codigoEspecialidad>100){
-        std::cout << "Codigo especialidad invalido (fuera de rango).\n";
+    EspecialidadArchivo especialidades;
+    if(especialidades.getPosicion(codigoEspecialidad)==-1 && codigoEspecialidad!=0){
+        std::cout << "Codigo especialidad invalido.\n";
         return false;
     }
     _codigoEspecialidad = codigoEspecialidad;
