@@ -25,11 +25,6 @@ FechaHora Medico::getInicioActividad(){
 
 ///setters
 bool Medico::setCodigoEspecialidad(int codigoEspecialidad){
-    EspecialidadArchivo especialidades;
-    if(especialidades.getPosicion(codigoEspecialidad)==-1 && codigoEspecialidad!=0){
-        std::cout << "Codigo especialidad invalido.\n";
-        return false;
-    }
     _codigoEspecialidad = codigoEspecialidad;
     return true;
 }

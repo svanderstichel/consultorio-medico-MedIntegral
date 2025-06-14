@@ -6,12 +6,14 @@
 #include "MedicoManager.h"
 #include "FechaHora.h"
 #include "EspecialidadManager.h"
+#include "EspecialidadArchivo.h"
 
 using namespace std;
 
 void MedicoManager::alta(){
 
     EspecialidadManager especialidades;
+    EspecialidadArchivo especialidadesArchivo;
     int dni,codigoEspecialidad;
     string apellido,nombre,telefono,email;
     FechaHora fechaNacimiento;
@@ -46,33 +48,22 @@ void MedicoManager::alta(){
     else{contadorIntentos=0;}
 
     ///APELLIDO
-    while(reg.getApellido()=="" && contadorIntentos<3){
+    while(reg.getApellido().size()==0 && contadorIntentos<3){
     cout << "Ingrese Apellido: ";
     getline(cin, apellido);
-
-    //validacion de entrada, string vacio
-    if(apellido.empty())
-        {cout << "Error. Apellido vacio.\n\n";}
-    else
-        {reg.setApellido(apellido);}
+    reg.setApellido(apellido);
     contadorIntentos++;}
 
     //verificar limite de reintentos
-    if(contadorIntentos==3 && reg.getApellido()=="")
+    if(contadorIntentos==3 && reg.getApellido().size()==0)
     {cout<<"\nHas excedido el limite de reintentos.\n";return;}
     else{contadorIntentos=0;}
 
     ///NOMBRE
-    while(reg.getNombre()=="" && contadorIntentos<3){
+    while(reg.getNombre().size()==0 && contadorIntentos<3){
     cout << "Ingrese Nombre: ";
     getline(cin, nombre);
-
-    //validacion de entrada, string vacio
-    if(nombre.empty())
-        {cout << "Error. Nombre vacio.\n\n";}
-    else
-        {reg.setNombre(nombre);}
-
+    reg.setNombre(nombre);
     contadorIntentos++;}
 
     //verificar limite de reintentos
@@ -84,13 +75,7 @@ void MedicoManager::alta(){
     while(reg.getTelefono()=="" && contadorIntentos<3){
     cout << "Ingrese Telefono: ";
     getline(cin, telefono);
-
-    //validacion de entrada, string vacio
-    if(telefono.empty())
-        {cout << "Error. Telefono vacio.\n\n";}
-    else
-        {reg.setTelefono(telefono);}
-
+    reg.setTelefono(telefono);
     contadorIntentos++;}
 
     //verificar limite de reintentos
@@ -102,13 +87,7 @@ void MedicoManager::alta(){
     while(reg.getEmail()=="" && contadorIntentos<3){
     cout << "Ingrese Email: ";
     getline(cin, email);
-
-    //validacion de entrada, string vacio
-    if(email.empty())
-        {cout << "Error. Email vacio.\n\n";}
-    else
-        {reg.setEmail(email);}
-
+    reg.setEmail(email);
     contadorIntentos++;}
 
     //verificar limite de reintentos
@@ -128,12 +107,14 @@ void MedicoManager::alta(){
     //validacion de entrada numerica, limpieza de errores y buffer
     if(cin.fail()){
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
-        cout << "\nEntrada invalida.\n";}
-    else{
-        cin.ignore();
-        reg.setCodigoEspecialidad(codigoEspecialidad);}
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');}
+    else{cin.ignore();}
 
+    //validacion de que el codigo de especialidad exista
+    if(especialidadesArchivo.getPosicion(codigoEspecialidad)==-1){
+        cout << "Codigo especialidad invalido.\n";}
+
+    else{reg.setCodigoEspecialidad(codigoEspecialidad);}
     contadorIntentos++;}
 
     //verificar limite de reintentos
@@ -296,14 +277,10 @@ void MedicoManager::modificar(){
     case 1:{
         {string apellido = reg.getApellido();
 
-        do{
-        cout << "Ingrese nuevo apellido: ";
+        do{cout << "Ingrese nuevo apellido: ";
         getline(cin,apellido);
-        if(apellido.empty())
-        {cout << "Error. Apellido vacio.\n\n";}
-        else{reg.setApellido(apellido);}
-        }
-        while(apellido!=reg.getApellido());
+        reg.setApellido(apellido);
+        }while(apellido!=reg.getApellido());
 
         if(archivo.escribir(pos,reg)){
             cout << "\nRegistro modificado correctamente.\n";
@@ -314,13 +291,9 @@ void MedicoManager::modificar(){
     case 2:
          {string nombre = reg.getNombre();
 
-        do{
-        cout << "Ingrese nuevo nombre: ";
+        do{cout << "Ingrese nuevo nombre: ";
         getline(cin,nombre);
-        if(nombre.empty())
-        {cout << "Error. Nombre vacio.\n\n";}
-        else{reg.setNombre(nombre);}
-        }
+        reg.setNombre(nombre);}
         while(nombre!=reg.getNombre());
 
         if(archivo.escribir(pos,reg)){
@@ -332,13 +305,9 @@ void MedicoManager::modificar(){
     case 3:
         {string email = reg.getEmail();
 
-        do{
-        cout << "Ingrese nuevo email: ";
+        do{cout << "Ingrese nuevo email: ";
         getline(cin,email);
-        if(email.empty())
-        {cout << "Error. Email vacio.\n\n";}
-        else{reg.setEmail(email);}
-        }
+        reg.setEmail(email);}
         while(email!=reg.getEmail());
 
         if(archivo.escribir(pos,reg)){
@@ -349,14 +318,10 @@ void MedicoManager::modificar(){
     case 4:
         {string telefono = reg.getTelefono();
 
-        do{
-        cout << "Ingrese nuevo telefono: ";
+        do{cout << "Ingrese nuevo telefono: ";
         getline(cin,telefono);
-        if(telefono.empty())
-        {cout << "Error. Telefono vacio.\n\n";}
-        else{reg.setTelefono(telefono);}
-        }
-        while(telefono!=reg.getTelefono());
+        reg.setTelefono(telefono);
+        }while(telefono!=reg.getTelefono());
 
         if(archivo.escribir(pos,reg)){
             cout << "\nRegistro modificado correctamente.\n";
@@ -366,18 +331,28 @@ void MedicoManager::modificar(){
         break;}
     case 5:
         {int codigoEspecialidad = reg.getCodigoEspecialidad();
+        EspecialidadManager especialidades;
+        EspecialidadArchivo especialidadesArchivo;
+
+        //listar especialidades disponibles
+        system("cls");
+        especialidades.listarEspecialidad();
 
         do{
         cout << "Ingrese nuevo codigo de especialidad: ";
         cin >> codigoEspecialidad;
+
+        //validacion de ingreso de dato valido
         if(cin.fail()){
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout << "\nEntrada invalida.\n";}
-        else{
-            cin.ignore();
-            reg.setCodigoEspecialidad(codigoEspecialidad);}
-        }
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');}
+        else{cin.ignore();}
+
+        //validacion de que el codigo de especialidad exista
+        if(especialidadesArchivo.getPosicion(codigoEspecialidad)==-1){
+        cout << "Codigo especialidad invalido.\n";}
+
+        else{reg.setCodigoEspecialidad(codigoEspecialidad);}}
         while(codigoEspecialidad!=reg.getCodigoEspecialidad());
 
         if(archivo.escribir(pos,reg)){
