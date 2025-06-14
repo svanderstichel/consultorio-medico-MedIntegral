@@ -21,13 +21,14 @@ void ObraSocialManager::altaObraSocial() {
 
     ///***CARGA DE DATOS***
     ///NOMBRE OBRA SOCIAL
-    while (nombre.size() == 0 && intentos <= 3) {
+    while (reg.getNombre().size() == 0 && intentos < 3) {
         cout << "Ingrese nombre de la obra social: ";
         getline(cin,nombre);
         reg.setNombre(nombre);
         intentos++;}
 
-    if (intentos > 3){
+    //validar limite de intentos
+    if (intentos == 3 && reg.getNombre().size() == 0){
         cout << "\nExcedio el limite de intentos.\n";
         return;}
 
