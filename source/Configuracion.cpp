@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "Configuracion.h"
 #include "ConfiguracionArchivo.h"
 #include "MedicoManager.h"
@@ -22,7 +23,11 @@ void Configuracion::crearCopiaRespaldo(){
     cout << "---------------------------\n";
     cout << "Seleccione archivo a respaldar: ";
     cin >> opcion;
-    cin.ignore();
+    if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+    else{cin.ignore();}
 
     switch(opcion){
         case 1:
@@ -77,6 +82,7 @@ void Configuracion::crearCopiaRespaldo(){
         }
         break;
         default:
+            cout << "\nOpcion invalida\n";
             break;}
 
     system("pause");
@@ -99,7 +105,11 @@ void Configuracion::recuperarRegistro(){
     cout << "---------------------------\n";
     cout << "Seleccione una opcion: ";
     cin >> opcion;
-    cin.ignore();
+    if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+    else{cin.ignore();}
 
     switch(opcion){
         case 1:{
@@ -112,6 +122,7 @@ void Configuracion::recuperarRegistro(){
             obj.alta(dni);
             break;}
         default:
+            cout << "\nOpcion invalida\n";
             break;
             }
     system("pause");
@@ -132,7 +143,11 @@ void Configuracion::exportarCSV(){
     cout << "---------------------------\n";
     cout << "Seleccione una opcion: ";
     cin >> opcion;
-    cin.ignore();
+    if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+    else{cin.ignore();}
 
     switch(opcion){
         case 1:{
@@ -144,6 +159,7 @@ void Configuracion::exportarCSV(){
             cout << endl;
             break;}
         default:
+            cout << "\nOpcion invalida\n";
             break;
             }
     system("pause");

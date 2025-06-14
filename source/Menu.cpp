@@ -7,6 +7,7 @@
 #include "TurnoManager.h"
 #include "EspecialidadManager.h"
 #include "Configuracion.h"
+#include "Reporte.h"
 
 using namespace std;
 
@@ -314,9 +315,62 @@ void Menu::menuEspecialidad() {
 
 
 void Menu::menuReportes() {
-    system("cls");
-    cout << "---- REPORTES ----\n";
-    system("pause");
+    Reporte obj;
+    int opcion;
+    do {
+        system("cls");
+        cout << "================================\n";
+        cout << "\tMENU REPORTES\n";
+        cout << "================================\n";
+        cout << "1 - Recaudacion anual/mensual\n";
+        cout << "2 - Recaudacion segun obra social\n";
+        cout << "3 - Recaudacion segun especialidad\n";
+        cout << "4 - Cantidad pacientes por medico\n";
+        cout << "5 - Cantidad de turnos por medico\n";
+        cout << "6 - Cantidad de turnos por paciente\n";
+        cout << "0 - Volver al menu principal\n";
+        cout << "--------------------------------\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
+
+        switch (opcion) {
+            case 1:
+                cout << "\n<Recaudacion anual y mensual>\n\n";
+                obj.recaudacionAnualMensual();
+                break;
+            case 2:
+                cout << "\n<Recaudacion segun obra social>\n\n";
+                obj.recaudacionObraSocial();
+                break;
+            case 3:
+                cout << "\n<Recaudacion segun especialidad>\n\n";
+                obj.recaudacionEspecialidad();
+                break;
+            case 4:
+                cout << "\n<Cantidad de pacientes por medico>\n\n";
+                obj.cantidadPacientesMedico();
+                break;
+            case 5:
+                cout << "\n<Cantidad de turnos por medico>\n\n";
+                obj.cantidadTurnosMedico();
+                break;
+            case 6:
+                cout << "\n<Cantidad de turnos por paciente>\n\n";
+                obj.cantidadTurnosPaciente();
+                break;
+            case 0:
+                cout << "\nVolviendo al menu principal...\n\n";
+                break;
+            default:
+                cout << "\nOpcion invalida. Intente nuevamente.\n\n";
+        }
+        system("pause");
+    } while (opcion != 0);
 }
 
 void Menu::menuConfiguracion() {
