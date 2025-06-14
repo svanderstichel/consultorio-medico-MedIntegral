@@ -50,7 +50,7 @@
 		<Unit filename="header/PacienteArchivo.h" />
 		<Unit filename="header/PacienteManager.h" />
 		<Unit filename="header/Persona.h" />
-		<Unit filename="header/Reportes.h" />
+		<Unit filename="header/Reporte.h" />
 		<Unit filename="header/Turno.h" />
 		<Unit filename="header/TurnoArchivo.h" />
 		<Unit filename="header/TurnoManager.h" />

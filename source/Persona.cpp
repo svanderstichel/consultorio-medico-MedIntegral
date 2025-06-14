@@ -5,11 +5,11 @@
 //constructores
 Persona::Persona(){
     FechaHora fechaNacimiento;
-    setDni(1000000);
-    setApellido("");
-    setNombre("");
-    setTelefono("");
-    setEmail("");
+    _dni = 1000000;
+    strcpy(_apellido,"");
+    strcpy(_nombre,"");
+    strcpy(_telefono,"");
+    strcpy(_email,"");
     setFechaNacimiento(fechaNacimiento);
     setEstado(true);
 }
@@ -51,8 +51,7 @@ bool Persona::getEstado(){
 bool Persona::setDni(int dni){
     if(dni<1000000 || dni>99999999){
         std::cout << "\nDNI invalido (fuera de rango).\n";
-        return false;
-    }
+        return false;}
     _dni = dni;
     return true;
 }
@@ -60,8 +59,10 @@ bool Persona::setDni(int dni){
 bool Persona::setApellido(std::string apellido){
     if(apellido.size()+1>50){
         std::cout << "\nApellido invalido (excede max. caracteres).\n";
-        return false;
-    }
+        return false;}
+    if(apellido.size()==0){
+        std::cout << "\nApellido invalido (string vacio).\n";
+        return false;}
     strcpy(_apellido,apellido.c_str());
     return true;
 }
@@ -69,24 +70,30 @@ bool Persona::setApellido(std::string apellido){
 bool Persona::setNombre(std::string nombre){
     if(nombre.size()+1>50){
         std::cout << "\nNombre invalido (excede max. caracteres).\n";
-        return false;
-    }
+        return false;}
+    if(nombre.size()==0){
+        std::cout << "\nNombre invalido (string vacio).\n";
+        return false;}
     strcpy(_nombre,nombre.c_str());
     return true;
 }
 bool Persona::setTelefono(std::string telefono){
     if(telefono.size()+1>50){
         std::cout << "\nTelefono invalido (excede max. caracteres).\n";
-        return false;
-    }
+        return false;}
+    if(telefono.size()==0){
+        std::cout << "\nTelefono invalido (string vacio).\n";
+        return false;}
     strcpy(_telefono,telefono.c_str());
     return true;
 }
 bool Persona::setEmail(std::string email){
     if(email.size()+1>50){
         std::cout << "\nEmail invalido (excede max. caracteres).\n";
-        return false;
-    }
+        return false;}
+    if(email.size()==0){
+        std::cout << "\nEmail invalido (string vacio).\n";
+        return false;}
     strcpy(_email,email.c_str());
     return true;
 }
