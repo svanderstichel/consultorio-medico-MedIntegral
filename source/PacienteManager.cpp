@@ -147,9 +147,7 @@ void PacienteManager::bajaPaciente(){
     //validacion de entrada numerica, limpieza de errores y buffer
     if(cin.fail()){
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
-        cout << "\nEntrada invalida.\n";
-        return;}
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');}
     else{cin.ignore();}
 
     pos = archivo.getPosicion(dni);
@@ -177,9 +175,7 @@ void PacienteManager::modificarPAciente(){
     //validacion de entrada numerica, limpieza de errores y buffer
     if(cin.fail()){
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
-        cout << "\nEntrada invalida.\n";
-        return;}
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');}
     else{cin.ignore();}
 
     pos = archivo.getPosicion(dni);
@@ -225,9 +221,7 @@ void PacienteManager::modificarPAciente(){
     //validacion de dato ingresado
     if(cin.fail()){
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
-        cout << "\nEntrada invalida.\n";
-        return;}
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');}
     else{cin.ignore();}
 
     switch(opc){

@@ -191,9 +191,7 @@ void MedicoManager::baja(){
     cin >> dni;
     if(cin.fail()){
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
-        cout << "\nEntrada invalida.\n";
-        return;}
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');}
 
     else{cin.ignore();}
 
@@ -223,8 +221,7 @@ void MedicoManager::modificar(){
     if(cin.fail()){
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(),'\n');
-        cout << "\nEntrada invalida.\n";
-        return;}
+        }
     else{cin.ignore();}
 
     pos = archivo.getPosicion(dni);
@@ -268,9 +265,7 @@ void MedicoManager::modificar(){
     cin >> opc;
     if(cin.fail()){
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
-        cout << "\nEntrada invalida.\n";
-        return;}
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');}
     else{cin.ignore();}
 
     switch(opc){
@@ -390,15 +385,13 @@ void MedicoManager::buscar(){
     cin >> dni;
     if(cin.fail()){
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
-        cout << "\nEntrada invalida.\n";
-        return;}
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');}
     else{cin.ignore();}
 
     pos = archivo.getPosicion(dni);
     if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
 
-    reg = archivo.leer(pos);
+    else{reg = archivo.leer(pos);
 
     ///print de tabla
     ///encabezado de columnas
@@ -422,7 +415,7 @@ void MedicoManager::buscar(){
          << reg.getInicioActividad().getDia() << "/"
          << reg.getInicioActividad().getMes() << "/"
          << reg.getInicioActividad().getAnio()
-         << setfill(' ') << endl << endl;///establece char de relleno
+         << setfill(' ') << endl << endl;}///establece char de relleno
 }
 
 void MedicoManager::alta(int dni){
