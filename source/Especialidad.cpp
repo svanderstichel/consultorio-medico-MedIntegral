@@ -6,7 +6,7 @@
 Especialidad::Especialidad(){
     setCodEspecialidad(0);
     setEstado(true);
-    setNombre("");
+    strcpy(_nombre, "");
 }
 
 Especialidad::Especialidad(int codEspecialidad,std::string nombre,bool estado){
@@ -34,8 +34,10 @@ void Especialidad::setCodEspecialidad(int codEspecialidad){
 bool Especialidad::setNombre(std::string nombre){
     if(nombre.size()+1>50){
         std::cout << "\nNombre invalido (excede max. caracteres).\n";
-        return false;
-    }
+        return false;}
+    if (nombre.size() == 0){
+        std::cout << "Nombre de especialidad no puede estar vacio.\n";
+        return false;}
     strcpy(_nombre,nombre.c_str());
     return true;
 }

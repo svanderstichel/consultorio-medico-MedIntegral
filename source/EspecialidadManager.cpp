@@ -11,24 +11,28 @@ void EspecialidadManager::altaEspecialidad() {
     int codEspecialidad;
     std::string nombre;
     Especialidad reg;
+    int intentos = 0;
 
-    ///asignacion de id autoincremental
+    ///ASIGNACION ID AUTOINCREMENTAL
     codEspecialidad=archivo.getCantidadRegistros()+1;
-    ///inicializa el primer id en 1
+    //inicializa el primer id en 1
     if(codEspecialidad==0){codEspecialidad++;}
     reg.setCodEspecialidad(codEspecialidad);
 
-    cout << "Ingresar Nombre: ";
-    getline(cin, nombre);
+    ///***CARGA DE DATOS***
+    ///NOMBRE ESPECIALIDAD
+    while(reg.getNombre().size()==0 && intentos<3){
+        cout << "Ingresar nombre de especialidad: ";
+        getline(cin, nombre);
+        reg.setNombre(nombre);
+        intentos++;}
 
-    if (nombre.empty()) {
-        cout << "Error. Nombre vacio. Intente nuevamente.\n";
-        return;}
+    //validar limite de intentos
+    if (intentos == 3 && reg.getNombre().size() == 0){
+    cout << "\nExcedio el limite de intentos.\n";
+    return;}
 
-    if (!reg.setNombre(nombre)){
-        cout << "El nombre es demasiado largo. Intente nuevamente.\n";
-        return;}
-
+    ///ESCRITURA EN DISCO
     if (archivo.escribir(reg)) {
         cout << "\nEspecialidad cargada correctamente.\n";
     } else {
@@ -40,9 +44,19 @@ void EspecialidadManager::bajaEspecialidad(){
     Especialidad reg;
     int codEspecialidad, pos;
 
-    cout << "Ingrese el codigo de especialidad: ";
+    system("cls");
+    listarEspecialidad();
+
+    cout << "Ingrese el codigo de especialidad a dar de baja: ";
     cin >> codEspecialidad;
-    cin.ignore();
+    //validar ingreso de dato valido
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";
+        return;}
+    else{cin.ignore();}
+
 
     pos = archivo.getPosicion(codEspecialidad);
     if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
@@ -61,42 +75,43 @@ void EspecialidadManager::modificarEspecialidad() {
     string nombre;
     int codEspecialidad, pos;
 
+    system("cls");
+    listarEspecialidad();
+
     cout << "\nIngresar codigo de especialidad a modificar (0 para cancelar): ";
     cin >> codEspecialidad;
-    cin.ignore();
+    //validar ingreso de dato valido
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";
+        return;}
+    else{cin.ignore();}
 
+    //verificar si la operacion fue cancelada
     if (codEspecialidad == 0) {
-        cout << "Operación cancelada por el usuario.\n";
+        cout << "Operacion cancelada por el usuario.\n";
         return;}
 
+    //verificar posicion del registro en archivo
     pos = archivo.getPosicion(codEspecialidad);
     if (pos == -1) {
         cout << "El codigo no existe.\n";
-        cout << "Especialidades disponibles:\n\n\n";
-        listarEspecialidad();
         return;}
 
-
+    ///INGRESO DE NUEVO NOMBRE DE ESPECIALIDAD
     reg = archivo.leer(pos);
     cout << "\nNombre actual: " << reg.getNombre() << endl;
-
-
     cout << "Ingresar nuevo nombre de especialidad: ";
     getline(cin, nombre);
 
-    if (nombre.empty()) {
-        cout << "El nombre no puede estar vacio.\n";
-        return;}
+    //validar nuevo dato ingresado
+    if(!reg.setNombre(nombre)){return;}
 
-    if (!reg.setNombre(nombre)) {
-        cout << "Error. Nombre demasiado largo. Intente nuevamente.\n";
-        return;}
-
+    ///ESCRITURA EN DISCO
     if (archivo.escribir(pos, reg)) {
-        cout << "\nRegistro modificado correctamente.\n";
-    } else {
-        cout << "\nSe produjo un error de escritura en disco.\n";
-    }
+        cout << "\nRegistro modificado correctamente.\n";}
+        else{cout << "\nSe produjo un error de escritura en disco.\n";}
 }
 
 void EspecialidadManager::listarEspecialidad(){
@@ -110,7 +125,6 @@ int cantReg = archivo.getCantidadRegistros();
 
     archivo.leer(cantReg,vec);
 
-    cout << endl;
     cout << left
          << setw(7) << "Codigo"
          << setw(13) << "Especialidad"
