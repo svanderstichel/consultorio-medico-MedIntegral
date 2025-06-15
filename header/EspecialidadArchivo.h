@@ -7,6 +7,7 @@ class EspecialidadArchivo{
         EspecialidadArchivo();
         ///get
         int getPosicion(int codEspecialidad);
+        int getPosicion(int codEspecialidad,bool estado);
         int getCantidadRegistros();
         ///leer un registro
         Especialidad leer(int pos);

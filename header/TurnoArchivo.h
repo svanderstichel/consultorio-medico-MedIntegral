@@ -7,6 +7,7 @@ class TurnoArchivo{
         TurnoArchivo();
         ///get
         int getPosicion(int idTurno);
+        int getPosicion(int idTurno,bool estado);
         int getCantidadRegistros();
         ///leer un registro
         Turno leer(int pos);

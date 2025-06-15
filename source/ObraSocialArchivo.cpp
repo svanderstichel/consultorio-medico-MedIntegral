@@ -75,3 +75,22 @@ bool ObraSocialArchivo::escribir(int pos, ObraSocial reg) {
     fclose(pFile);
     return resultado;
 }
+
+int ObraSocialArchivo::getPosicion(int codigo,bool estado) {
+    FILE* pFile = fopen(_nombreArchivo, "rb");
+    if (pFile == nullptr) return -1;
+
+    ObraSocial reg;
+    int pos = 0;
+
+    while (fread(&reg, sizeof(ObraSocial), 1, pFile) == 1) {
+        if (reg.getCodigoObraSocial() == codigo && reg.getEstado()==estado) {
+            fclose(pFile);
+            return pos;
+        }
+        pos++;
+    }
+
+    fclose(pFile);
+    return -1;
+}

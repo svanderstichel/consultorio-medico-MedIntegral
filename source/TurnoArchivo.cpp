@@ -86,3 +86,21 @@ bool TurnoArchivo::escribir(int pos,Turno reg){
     fclose(pFile);
     return result;
 }
+int TurnoArchivo::getPosicion(int idTurno,bool estado){
+    FILE *pFile;
+    Turno reg;
+    int pos=0;
+
+    pFile=fopen(_nombreArchivo,"rb");
+    if(pFile==nullptr){return -1;}
+
+    while(fread(&reg,sizeof(Turno),1,pFile)==1){
+        if(reg.getidTurno()==idTurno && reg.getEstado()==estado){
+            fclose(pFile);
+            return pos;
+        }
+        pos++;
+    }
+    fclose(pFile);
+    return -1;
+}

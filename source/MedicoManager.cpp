@@ -422,14 +422,13 @@ void MedicoManager::alta(int dni){
     Medico reg;
     int pos;
 
-    pos = archivo.getPosicion(dni);
-    if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
+    pos = archivo.getPosicion(dni,false);
+    if(pos==-1){cout << "\nEl registro no existe o ya se encuentra activo.\n"; return;}
 
-    if(pos!=-1){
     reg = archivo.leer(pos);
     reg.setEstado(true);
     if(archivo.escribir(pos,reg)){cout << "\nRegistro recuperado correctamente.\n";}
-    else{cout << "\nSe produjo un error de escritura en disco.\n";}}
+    else{cout << "\nSe produjo un error de escritura en disco.\n";}
 }
 
 void MedicoManager::exportarCSV(){

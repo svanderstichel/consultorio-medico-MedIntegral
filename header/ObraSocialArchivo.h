@@ -10,6 +10,7 @@ public:
 
     int getCantidadRegistros();
     int getPosicion(int codigo);
+    int getPosicion(int codigo,bool estado);
     ObraSocial leer(int pos);
     void leer(int cantidadRegistros, ObraSocial* vec);
     bool escribir(ObraSocial reg);
