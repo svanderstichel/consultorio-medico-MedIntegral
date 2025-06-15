@@ -141,22 +141,15 @@ int cantReg = archivo.getCantidadRegistros();
     cout << endl;
     delete[] vec;
 }
-/*void EspecialidadManager::activarEspecialidad(){
+void EspecialidadManager::altaEspecialidad(int codEspecialidad){
     Especialidad reg;
-    int codEspecialidad, pos;
+    int pos;
 
-    cout << "Ingrese el codigo de especialidad: ";
-    cin >> codEspecialidad;
-    cin.ignore();
+    pos = archivo.getPosicion(codEspecialidad,false);
+    if(pos==-1){cout << "\nEl registro no existe o ya se encuentra activo.\n"; return;}
 
-    pos = archivo.getPosicion(codEspecialidad);
-    if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
-
-    if(pos!=-1){
     reg = archivo.leer(pos);
     reg.setEstado(true);
-    if(archivo.escribir(pos,reg)){
-            cout << "\nLa especialidad f correctamente.\n";
-        }else{cout << "\nSe produjo un error de escritura en el disco.\n";}
-    }
-}*/
+    if(archivo.escribir(pos,reg)){cout << "\nRegistro recuperado correctamente.\n";}
+    else{cout << "\nSe produjo un error de escritura en disco.\n";}
+}

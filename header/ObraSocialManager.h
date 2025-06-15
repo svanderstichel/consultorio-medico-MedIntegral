@@ -4,6 +4,7 @@
 class ObraSocialManager {
 public:
     void altaObraSocial();
+    void altaObraSocial(int codObraSocial);
     void bajaObraSocial();
     void modificarObraSocial();
     void listarObraSocial();

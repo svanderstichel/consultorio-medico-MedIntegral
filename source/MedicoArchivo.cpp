@@ -85,3 +85,22 @@ bool MedicoArchivo::escribir(int pos,Medico reg){
     fclose(pFile);
     return result;
 }
+
+int MedicoArchivo::getPosicion(int dni,bool estado){
+    FILE *pFile;
+    Medico reg;
+    int pos=0;
+
+    pFile=fopen(_nombreArchivo,"rb");
+    if(pFile==nullptr){return -1;}
+
+    while(fread(&reg,sizeof(Medico),1,pFile)==1){
+        if(reg.getDni()==dni && reg.getEstado()==estado){
+            fclose(pFile);
+            return pos;
+        }
+        pos++;
+    }
+    fclose(pFile);
+    return -1;
+}

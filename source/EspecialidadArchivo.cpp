@@ -85,3 +85,21 @@ bool EspecialidadArchivo::escribir(int pos,Especialidad reg){
     fclose(pFile);
     return result;
 }
+int EspecialidadArchivo::getPosicion(int codEspecialidad,bool estado){
+    FILE *pFile;
+    Especialidad reg;
+    int pos=0;
+
+    pFile=fopen(_nombreArchivo,"rb");
+    if(pFile==nullptr){return -1;}
+
+    while(fread(&reg,sizeof(Especialidad),1,pFile)==1){
+        if(reg.getCodEspecialidad()==codEspecialidad && reg.getEstado()==estado){
+            fclose(pFile);
+            return pos;
+        }
+        pos++;
+    }
+    fclose(pFile);
+    return -1;
+}

@@ -7,6 +7,7 @@ class MedicoArchivo{
         MedicoArchivo();
         ///get
         int getPosicion(int dni);
+        int getPosicion(int dni,bool estado);
         int getCantidadRegistros();
         ///leer un registro
         Medico leer(int pos);

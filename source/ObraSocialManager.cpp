@@ -163,4 +163,15 @@ void ObraSocialManager::modificarObraSocial() {
     if (archivo.escribir(pos, reg)) {cout << "\nRegistro modificado correctamente.\n";}
         else {cout << "\nSe produjo un error de escritura en disco.\n";}
 }
+void ObraSocialManager::altaObraSocial(int codObraSocial){
+    ObraSocial reg;
+    int pos;
 
+    pos = archivo.getPosicion(codObraSocial,false);
+    if(pos==-1){cout << "\nEl registro no existe o ya se encuentra activo.\n"; return;}
+
+    reg = archivo.leer(pos);
+    reg.setEstado(true);
+    if(archivo.escribir(pos,reg)){cout << "\nRegistro recuperado correctamente.\n";}
+    else{cout << "\nSe produjo un error de escritura en disco.\n";}
+}

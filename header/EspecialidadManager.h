@@ -4,10 +4,10 @@
 class EspecialidadManager{
     public:
         void altaEspecialidad();
+        void altaEspecialidad(int codEspecialidad);
         void bajaEspecialidad();
         void listarEspecialidad();
         void modificarEspecialidad();
-       //void activarEspecialidad();
     private:
         EspecialidadArchivo archivo;
 };
