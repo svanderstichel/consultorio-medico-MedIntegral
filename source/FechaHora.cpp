@@ -29,23 +29,22 @@ void FechaHora::cargarFecha(){
     int mes=0;
     int anio=0;
 
-    ///validacion de ingreso de dia
-    while(dia<1 || dia>31){
-        cout << "Ingrese dia: ";
-        cin >> dia;
+    ///validacion de ingreso de anio
+    while(anio<1900 || anio>2050){
+        cout << "Ingrese anio: ";
+        cin >> anio;
 
         if(cin.fail()){
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout << "\nEntrada invalida.\n";}
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');}
         else{
             cin.ignore();}
 
-        if(dia<1 || dia>31){
-            cout << "Dia invalido (fuera de rango).\n";
+        if(anio<1900 || anio>2050){
+            cout << "Anio invalido (fuera de rango).\n";
         }
     }
-    _dia = dia;
+    _anio = anio;
 
     ///validacion de ingreso de mes
     while(mes<1 || mes>12){
@@ -54,8 +53,7 @@ void FechaHora::cargarFecha(){
 
         if(cin.fail()){
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout << "\nEntrada invalida.\n";}
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');}
         else{
             cin.ignore();}
 
@@ -65,23 +63,34 @@ void FechaHora::cargarFecha(){
     }
     _mes = mes;
 
-    ///validacion de ingreso de anio
-    while(anio<1900 || anio>2050){
-        cout << "Ingrese anio: ";
-        cin >> anio;
+    ///validacion de ingreso de dia
+    while(dia==0){
+        cout << "Ingrese dia: ";
+        cin >> dia;
 
+        //validacion de entrada numerica valida
         if(cin.fail()){
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout << "\nEntrada invalida.\n";}
-        else{
-            cin.ignore();}
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');}
+        else{cin.ignore();}
 
-        if(anio<1900 || anio>2050){
-            cout << "Anio invalido (fuera de rango).\n";
-        }
+        //validacion de dia valido
+        if(dia<1 || dia>31){cout << "Dia invalido (fuera de rango).\n"; dia=0;}
+
+        //validacion meses de 30 dias
+        if(dia>30 && (getMes()==4 || getMes()==6 || getMes()==9 || getMes()==11)){
+            cout << "Dia invalido (fuera de rango).\n"; dia=0; dia=0;}
+
+        // Año bisiesto
+        if (getMes() == 2 && ((getAnio() % 4 == 0 && getAnio() % 100 != 0) || (getAnio() % 400 == 0)) && dia > 29){
+            cout << "Dia invalido (fuera de rango).\n"; dia=0;}
+
+        // Año no bisiesto
+        if (getMes() == 2 && !((getAnio() % 4 == 0 && getAnio() % 100 != 0) || (getAnio() % 400 == 0)) && dia > 28){
+            cout << "Dia invalido (fuera de rango).\n"; dia=0;}
+
+        _dia = dia;
     }
-    _anio = anio;
 }
 void FechaHora::cargarHora(){
     int hora=24;
@@ -94,15 +103,12 @@ void FechaHora::cargarHora(){
         if(cin.fail()){
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout << "\nEntrada invalida.\n";}
-        else{
-            cin.ignore();}
+            hora=24;}
+        else{cin.ignore();}
 
         if(hora<0 || hora>23){
-            cout << "Hora invalida (fuera de rango).\n";
+            cout << "Hora invalida (fuera de rango).\n";}
         }
-    }
-
     _hora = hora;
 }
 
