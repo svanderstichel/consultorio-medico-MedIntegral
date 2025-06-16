@@ -11,7 +11,6 @@ class TurnoArchivo{
         int getCantidadRegistros();
         ///leer un registro
         Turno leer(int pos);
-        Turno Leer(int posicion);
         ///leer todos los registros en un vector
         void leer(int cantidadRegistros,Turno *vec);
         ///escribir un registro
