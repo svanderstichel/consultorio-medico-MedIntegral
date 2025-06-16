@@ -1,9 +1,13 @@
 #include <iostream>
+#include <limits>
 #include "Menu.h"
 #include "PacienteManager.h"
 #include "MedicoManager.h"
 #include "ObraSocialManager.h"
-
+#include "TurnoManager.h"
+#include "EspecialidadManager.h"
+#include "Configuracion.h"
+#include "Reporte.h"
 
 using namespace std;
 
@@ -25,7 +29,11 @@ void Menu::menuPrincipal(){
         cout << "--------------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
          switch (opcion) {
             case 1: menuPaciente(); break;
@@ -63,30 +71,34 @@ void Menu::menuPaciente() {
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
         switch (opcion) {
             case 1:
-                cout << ">> ALTA de paciente\n";
+                cout << "\n<Alta de paciente>\n\n";
                 obj.altaPaciente();
                 break;
             case 2:
-                cout << ">> BAJA de paciente\n";
+                cout << "\n<Baja de paciente>\n\n";
                 obj.bajaPaciente();
                 break;
             case 3:
-                cout << ">> MODIFICAR paciente\n";
+                cout << "\n<Modificar paciente>\n\n";
                 obj.modificarPAciente();
                 break;
             case 4:
-                cout << ">> LISTAR pacientes\n";
+                cout << "\n<Listar pacientes>\n\n";
                 obj.listarPaciente();
                 break;
             case 0:
-                cout << "Volviendo al menu principal...\n";
+                cout << "\nVolviendo al menu principal...\n\n";
                 break;
             default:
-                cout << "Opcion invalida. Intente nuevamente.\n";
+                cout << "\nOpcion invalida. Intente nuevamente.\n\n";
         }
         system("pause");
     } while (opcion != 0);
@@ -110,40 +122,45 @@ void Menu::menuMedico() {
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
         switch (opcion) {
             case 1:
-                cout << "\n<Alta de medico>\n";
+                cout << "\n<Alta de medico>\n\n";
                 obj.alta();
                 break;
             case 2:
-                cout << "\n<Baja de medico>\n";
+                cout << "\n<Baja de medico>\n\n";
                 obj.baja();
                 break;
             case 3:
-                cout << "\n<Modificar medico>\n";
+                cout << "\n<Modificar medico>\n\n";
                 obj.modificar();
                 break;
             case 4:
-                cout << "\n\n";
+                cout << "\n<Listar medicos>\n\n";
                 obj.listar();
                 break;
             case 5:
-                cout << "\n<Buscar medico>\n";
+                cout << "\n<Buscar medico>\n\n";
                 obj.buscar();
                 break;
             case 0:
-                cout << "Volviendo al menu principal...\n";
+                cout << "\nVolviendo al menu principal...\n\n";
                 break;
             default:
-                cout << "Opcion invalida. Intente nuevamente.\n";
+                cout << "\nOpcion invalida. Intente nuevamente.\n\n";
         }
         system("pause");
     } while (opcion != 0);
 }
 
 void Menu::menuTurno() {
+    TurnoManager manager;
     int opcion;
     do {
         system("cls");
@@ -154,34 +171,43 @@ void Menu::menuTurno() {
         cout << "2 - Baja de turno\n";
         cout << "3 - Modificar turno\n";
         cout << "4 - Listar turnos\n";
+        cout << "5 - Buscar turno\n";
         cout << "0 - Volver al menu principal\n";
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
         switch (opcion) {
             case 1:
-                cout << ">> ALTA de turno\n";
-                // Llamar a la función de alta aquí
+                cout << "\n<Alta de turno>\n\n";
+                manager.alta();
                 break;
             case 2:
-                cout << ">> BAJA de turno\n";
-                // Llamar a la función de baja aquí
+                cout << "\n<Baja de turno>\n\n";
+                manager.baja();
                 break;
             case 3:
-                cout << ">> MODIFICAR turno\n";
-                // Llamar a la función de modificar aquí
+                cout << "\n<Modificar turno>\n\n";
+                manager.modificar();
                 break;
             case 4:
-                cout << ">> LISTAR turnos\n";
-                // Llamar a la función de listar aquí
+                cout << "\n<Listar turnos>\n\n";
+                manager.listar();
+                break;
+            case 5:
+                cout << "\n<Buscar turno>\n\n";
+                manager.buscar();
                 break;
             case 0:
-                cout << "Volviendo al menu principal...\n";
+                cout << "\nVolviendo al menu principal...\n\n";
                 break;
             default:
-                cout << "Opcion invalida. Intente nuevamente.\n";
+                cout << "\nOpcion invalida. Intente nuevamente.\n\n";
         }
         system("pause");
     } while (opcion != 0);
@@ -204,30 +230,34 @@ void Menu::menuObraSocial() {
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
         switch (opcion) {
             case 1:
-                cout << ">> ALTA de obra social\n";
+                cout << "\n<Alta de obra social>\n\n";
                 obj.altaObraSocial();
                 break;
             case 2:
-                cout << ">> BAJA de obra social\n";
+                cout << "\n<Baja de obra social>\n\n";
                 obj.bajaObraSocial();
                 break;
             case 3:
-                cout << ">> MODIFICAR obra social\n";
+                cout << "\n<Modificar obras sociales>\n\n";
                 obj.modificarObraSocial();
                 break;
             case 4:
-                cout << ">> LISTAR obras sociales\n";
+                cout << "\n<Listar obras sociales>\n\n";
                 obj.listarObraSocial();
                 break;
             case 0:
-                cout << "Volviendo al menu principal...\n";
+                cout << "\nVolviendo al menu principal...\n";
                 break;
             default:
-                cout << "Opcion invalida. Intente nuevamente.\n";
+                cout << "\nOpcion invalida. Intente nuevamente.\n";
         }
         system("pause");
     } while (opcion != 0);
@@ -235,13 +265,14 @@ void Menu::menuObraSocial() {
 
 
 void Menu::menuEspecialidad() {
+    EspecialidadManager obj;
     int opcion;
     do {
         system("cls");
         cout << "================================\n";
         cout << "\tMENU ESPECIALIDADES \n";
         cout << "================================\n";
-        cout << "1 - Alta de especialidad\n";
+        cout << "1 - Nueva especialidad\n";
         cout << "2 - Baja de especialidad\n";
         cout << "3 - Modificar especialidad\n";
         cout << "4 - Listar especialidades\n";
@@ -249,30 +280,34 @@ void Menu::menuEspecialidad() {
         cout << "--------------------------------\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore();
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
 
         switch (opcion) {
             case 1:
-                cout << ">> ALTA de especialidad\n";
-                // Llamar a la función de alta aquí
+                cout << "\n<Nueva especialidad>\n\n";
+                obj.altaEspecialidad();
                 break;
             case 2:
-                cout << ">> BAJA de especialidad\n";
-                // Llamar a la función de baja aquí
+                cout << "\n<Baja especialidad>\n\n";
+                obj.bajaEspecialidad();
                 break;
             case 3:
-                cout << ">> MODIFICAR especialidad\n";
-                // Llamar a la función de modificar aquí
+                cout << "\n<Modificar especialidad>\n\n";
+                obj.modificarEspecialidad();
                 break;
             case 4:
-                cout << ">> LISTAR especialidades\n";
-                // Llamar a la función de listar aquí
+                cout << "\n<Listar especialidades>\n\n";
+                obj.listarEspecialidad();
                 break;
             case 0:
-                cout << "Volviendo al menu principal...\n";
+                cout << "\nVolviendo al menu principal...\n\n";
                 break;
             default:
-                cout << "Opcion invalida. Intente nuevamente.\n";
+                cout << "\nOpcion invalida. Intente nuevamente.\n\n";
         }
         system("pause");
     } while (opcion != 0);
@@ -280,13 +315,106 @@ void Menu::menuEspecialidad() {
 
 
 void Menu::menuReportes() {
-    system("cls");
-    cout << "---- REPORTES ----\n";
-    system("pause");
+    Reporte obj;
+    int opcion;
+    do {
+        system("cls");
+        cout << "================================\n";
+        cout << "\tMENU REPORTES\n";
+        cout << "================================\n";
+        cout << "1 - Recaudacion anual/mensual\n";
+        cout << "2 - Recaudacion segun obra social\n";
+        cout << "3 - Recaudacion segun especialidad\n";
+        cout << "4 - Cantidad pacientes por medico\n";
+        cout << "5 - Cantidad de turnos por medico\n";
+        cout << "6 - Cantidad de turnos por paciente\n";
+        cout << "0 - Volver al menu principal\n";
+        cout << "--------------------------------\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
+
+        switch (opcion) {
+            case 1:
+                cout << "\n<Recaudacion anual y mensual>\n\n";
+                obj.recaudacionAnualMensual();
+                break;
+            case 2:
+                cout << "\n<Recaudacion segun obra social>\n\n";
+                obj.recaudacionObraSocial();
+                break;
+            case 3:
+                cout << "\n<Recaudacion segun especialidad>\n\n";
+                obj.recaudacionEspecialidad();
+                break;
+            case 4:
+                cout << "\n<Cantidad de pacientes por medico>\n\n";
+                obj.cantidadPacientesMedico();
+                break;
+            case 5:
+                cout << "\n<Cantidad de turnos por medico>\n\n";
+                obj.cantidadTurnosMedico();
+                break;
+            case 6:
+                cout << "\n<Cantidad de turnos por paciente>\n\n";
+                obj.cantidadTurnosPaciente();
+                break;
+            case 0:
+                cout << "\nVolviendo al menu principal...\n\n";
+                break;
+            default:
+                cout << "\nOpcion invalida. Intente nuevamente.\n\n";
+        }
+        system("pause");
+    } while (opcion != 0);
 }
 
 void Menu::menuConfiguracion() {
-    system("cls");
-    cout << "---- CONFIGURACION ----\n";
-    system("pause");
+    Configuracion obj;
+    int opcion;
+    do {
+        system("cls");
+        cout << "================================\n";
+        cout << "\tMENU CONFIGURACION\n";
+        cout << "================================\n";
+        cout << "1 - Realizar copia de respaldo\n";
+        cout << "2 - Restaurar copia de respaldo\n";
+        cout << "3 - Recuperar registro eliminado\n";
+        cout << "4 - Exportar datos CSV\n";
+        cout << "0 - Volver al menu principal\n";
+        cout << "--------------------------------\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            opcion=-1;}
+        else{cin.ignore();}
+
+        switch (opcion) {
+            case 1:
+                obj.crearCopiaRespaldo();
+                break;
+            case 2:
+                obj.restaurarCopiaRespaldo();
+                break;
+            case 3:
+                cout << "\n<Recuperar regisro>\n\n";
+                obj.recuperarRegistro();
+                break;
+            case 4:
+                obj.exportarCSV();
+                break;
+            case 0:
+                cout << "\nVolviendo al menu principal...\n\n";
+                break;
+            default:
+                cout << "\nOpcion invalida. Intente nuevamente.\n\n";
+        }
+        system("pause");
+    } while (opcion != 0);
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
-#include <cstring>  // NECESARIO para usar strlen()
+#include <cstring>
+#include <limits>
 #include "ObraSocialManager.h"
 #include "ObraSocial.h"
 
@@ -9,45 +10,29 @@ using namespace std;
 void ObraSocialManager::altaObraSocial() {
     ObraSocial reg;
     int codigo;
-    char nombre[50];  // reemplaza std::string
+    string nombre;
     int intentos = 0;
 
-    // Ingreso de código
-    while (reg.getCodigoObraSocial() == 0 && intentos <= 3) {
-        cout << "Ingrese codigo de obra social: ";
-        cin >> codigo;
-        cin.ignore();
-        reg.setCodigoObraSocial(codigo);
-        intentos++;
-    }
+    ///ASIGNACION ID AUTOINCREMENTAL
+    codigo=archivo.getCantidadRegistros()+1;
+    //inicializa el primer id en 1
+    if(codigo==0){codigo++;}
+    reg.setCodigoObraSocial(codigo);
 
-    // Verificar existencia
-    if (archivo.getPosicion(codigo) != -1) {
-        cout << "\nEl codigo ya esta registrado.\n";
-        return;
-    }
-
-    if (intentos > 3) {
-        cout << "\nExcedio el limite de intentos.\n";
-        return;
-    } else {
-        intentos = 0;
-    }
-
-    // Ingreso de nombre
-    while (strlen(reg.getNombre()) == 0 && intentos <= 3) {
+    ///***CARGA DE DATOS***
+    ///NOMBRE OBRA SOCIAL
+    while (reg.getNombre().size() == 0 && intentos < 3) {
         cout << "Ingrese nombre de la obra social: ";
-        cin.getline(nombre, 50);
+        getline(cin,nombre);
         reg.setNombre(nombre);
-        intentos++;
-    }
+        intentos++;}
 
-    if (intentos > 3) {
+    //validar limite de intentos
+    if (intentos == 3 && reg.getNombre().size() == 0){
         cout << "\nExcedio el limite de intentos.\n";
-        return;
-    }
+        return;}
 
-    // Escritura en archivo
+    ///ESCRITURA EN DISCO
     if (archivo.escribir(reg)) {
         cout << "\nObra social cargada correctamente.\n";
     } else {
@@ -71,13 +56,12 @@ void ObraSocialManager::listarObraSocial() {
     }
 
     archivo.leer(cantidad, vec);
-
     // Encabezado
     cout << left
         << setw(15) << "Codigo"
         << setw(30) << "Nombre"
         << endl;
-    cout << string(45, '-') << endl;
+    cout << string(35, '-') << endl;
 
     for (int i = 0; i < cantidad; i++) {
         if (vec[i].getEstado()) {
@@ -97,9 +81,21 @@ void ObraSocialManager::bajaObraSocial() {
     int pos;
     ObraSocial reg;
 
+    system("cls");
+    cout << "OBRAS SOCIALES";
+    cout << "\n==============\n\n";
+    listarObraSocial();
+
     cout << "Ingrese el codigo de la obra social a dar de baja: ";
     cin >> codigo;
-    cin.ignore();
+
+    //validar ingreso de dato valido
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";
+        return;}
+    else{cin.ignore();}
 
     pos = archivo.getPosicion(codigo);
     if (pos == -1) {
@@ -120,45 +116,62 @@ void ObraSocialManager::bajaObraSocial() {
 void ObraSocialManager::modificarObraSocial() {
     int codigo, pos;
     ObraSocial reg;
-    char nombre[50];
+    string nombre;
 
+    //listar obras sociales
+    system("cls");
+    cout << "OBRAS SOCIALES";
+    cout << "\n==============\n\n";
+    listarObraSocial();
+
+    ///INGRESO ID A MODIFICAR
     cout << "\nIngresar codigo de obra social a modificar (0 para cancelar): ";
     cin >> codigo;
-    cin.ignore();
+    //validar valor numerico, limpiar error y buffer teclado
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";
+        return;}
+    else{cin.ignore();}
 
     if (codigo == 0) {
-        cout << "Operación cancelada por el usuario.\n";
+        cout << "Operacion cancelada por el usuario.\n";
         return;
     }
 
     pos = archivo.getPosicion(codigo);
     if (pos == -1) {
-        cout << "El código no existe.\n";
-        cout << "\nObras sociales disponibles:\n\n";
-        listarObraSocial();
+        cout << "El codigo no existe.\n";
         return;
     }
 
     reg = archivo.leer(pos);
     cout << "\nNombre actual: " << reg.getNombre() << endl;
 
+    ///CARGA NUEVO NOMBRE OBRA SOCIAL
     cout << "Ingresar nuevo nombre de obra social: ";
-    cin.getline(nombre, 50);
+    getline(cin,nombre);
 
-    if (strlen(nombre) == 0) {
-        cout << "El nombre no puede estar vacío.\n";
-        return;
-    }
+    //validar nuevo nombre de obra social
+    if (nombre.size() == 0){
+        cout << "El nombre no puede estar vacio.\n";
+        return;}
+    if(!reg.setNombre(nombre)){return;}
 
-    if (!reg.setNombre(nombre)) {
-        cout << "Error. Nombre inválido o demasiado largo.\n";
-        return;
-    }
-
-    if (archivo.escribir(pos, reg)) {
-        cout << "\nRegistro modificado correctamente.\n";
-    } else {
-        cout << "\nSe produjo un error de escritura en disco.\n";
-    }
+    ///ESCRITURA EN DISCO
+    if (archivo.escribir(pos, reg)) {cout << "\nRegistro modificado correctamente.\n";}
+        else {cout << "\nSe produjo un error de escritura en disco.\n";}
 }
+void ObraSocialManager::altaObraSocial(int codObraSocial){
+    ObraSocial reg;
+    int pos;
 
+    pos = archivo.getPosicion(codObraSocial,false);
+    if(pos==-1){cout << "\nEl registro no existe o ya se encuentra activo.\n"; return;}
+
+    reg = archivo.leer(pos);
+    reg.setEstado(true);
+    if(archivo.escribir(pos,reg)){cout << "\nRegistro recuperado correctamente.\n";}
+    else{cout << "\nSe produjo un error de escritura en disco.\n";}
+}

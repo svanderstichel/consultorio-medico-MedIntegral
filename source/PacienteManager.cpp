@@ -1,9 +1,12 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <limits>
 #include "Paciente.h"
 #include "PacienteManager.h"
 #include "FechaHora.h"
+#include "ObraSocialManager.h"
+#include "ObraSocialArchivo.h"
 
 using namespace std;
 
@@ -14,46 +17,118 @@ void PacienteManager::altaPaciente(){
     string apellido,nombre,telefono,email;
     FechaHora fechaNacimiento;
     Paciente reg;
+    ObraSocialManager obraSocial;
+    ObraSocialArchivo obraSocialArchivo;
+    int contadorIntentos=0;
 
-    while(reg.getDni()==1000000){
+    ///***CARGA DE DATOS***///
+    ///DNI
+    while(reg.getDni()==1000000 && contadorIntentos<3){
     cout << "Ingrese DNI: ";
     cin >> dni;
-    cin.ignore();
-    reg.setDni(dni);}
 
+    //validacion de entrada numerica, limpieza de errores y buffer
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";}
+    else{
+        cin.ignore();
+        reg.setDni(dni);}
+
+    contadorIntentos++;}
+
+    //verificar que dni no exista
     if(archivo.getPosicion(dni)!=-1)
     {cout<<"\nEl DNI ya se encuentra registrado\n";return;}
 
-    while(reg.getApellido()==""){
+    //verificar limite de reintentos
+    if(contadorIntentos==3 && reg.getDni()==1000000)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///APELLIDO
+    while(reg.getApellido().size()==0 && contadorIntentos<3){
     cout << "Ingrese Apellido: ";
     getline(cin, apellido);
-    reg.setApellido(apellido);}
+    reg.setApellido(apellido);
+    contadorIntentos++;}
 
-    while(reg.getNombre()==""){
+    //verificar limite de reintentos
+    if(contadorIntentos==3 && reg.getApellido().size()==0)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///NOMBRE
+    while(reg.getNombre().size()==0 && contadorIntentos<3){
     cout << "Ingrese Nombre: ";
     getline(cin, nombre);
-    reg.setNombre(nombre);}
+    reg.setNombre(nombre);
+    contadorIntentos++;}
 
-    while(reg.getTelefono()==""){
+    //verificar limite de reintentos
+    if(contadorIntentos==3 && reg.getNombre()=="")
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///TELEFONO
+    while(reg.getTelefono()=="" && contadorIntentos<3){
     cout << "Ingrese Telefono: ";
     getline(cin, telefono);
-    reg.setTelefono(telefono);}
+    reg.setTelefono(telefono);
+    contadorIntentos++;}
 
-    while(reg.getEmail()==""){
+    //verificar limite de reintentos
+    if(contadorIntentos==3 && reg.getTelefono()=="")
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///EMAIL
+    while(reg.getEmail()=="" && contadorIntentos<3){
     cout << "Ingrese Email: ";
     getline(cin, email);
-    reg.setEmail(email);}
+    reg.setEmail(email);
+    contadorIntentos++;}
 
-    while(reg.getCodObraSocial()==0){
+    //verificar limite de reintentos
+    if(contadorIntentos==3 && reg.getEmail()=="")
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///OBRA SOCIAL
+    //listar obras sociales disponibles
+    system("cls");
+    obraSocial.listarObraSocial();
+
+    //carga de codigo
+    while(reg.getCodObraSocial()==0 && contadorIntentos<3){
     cout << "Ingrese Codigo de Obra Social: ";
     cin >> codObraSocial;
-    cin.ignore();
-    reg.setCodObraSocial(codObraSocial);}
 
+    //validar dato numerico, limpieza de errores y buffer teclado
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');}
+    else{cin.ignore();}
+
+    //validacion de que el codigo de especialidad exista
+    if(obraSocialArchivo.getPosicion(codObraSocial)==-1){
+        cout << "Codigo de obra social invalido.\n";}
+
+    else{reg.setCodObraSocial(codObraSocial);}
+    contadorIntentos++;}
+
+    //verificar limite de reintentos
+    if(contadorIntentos==3 && reg.getCodObraSocial()==0)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///FECHA DE NACIMIENTO
     cout << "Fecha de Nacimiento\n";
     fechaNacimiento.cargarFecha();
     reg.setFechaNacimiento(fechaNacimiento);
 
+    ///ESCRITURA EN DISCO
     if(archivo.escribir(reg)){cout <<"\nPaciente cargado correctamente!\n";}
     else{cout <<"\nSe produjo un error de escritura en disco.\n";}
 }
@@ -61,13 +136,24 @@ void PacienteManager::bajaPaciente(){
     Paciente reg;
     int dni, pos;
 
-    cout << "Ingrese el DNI del paciente: ";
+    //listar pacientes
+    system("cls");
+    listarPaciente();
+
+    //ingreso de dni
+    cout << "Ingrese el DNI del paciente a dar de baja: ";
     cin >> dni;
-    cin.ignore();
+
+    //validacion de entrada numerica, limpieza de errores y buffer
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');}
+    else{cin.ignore();}
 
     pos = archivo.getPosicion(dni);
     if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
 
+    ///ESCRITURA EN DICOS
     if(pos!=-1){
     reg = archivo.leer(pos);
     reg.setEstado(false);
@@ -80,9 +166,17 @@ void PacienteManager::modificarPAciente(){
     Paciente reg;
     int dni, pos, opc;
 
-    cout << "\nIngrese el DNI del paciente: ";
+    //listar pacientes
+    system("cls");
+    listarPaciente();
+
+    cout << "\nIngrese el DNI del paciente a modificar: ";
     cin >> dni;
-    cin.ignore();
+    //validacion de entrada numerica, limpieza de errores y buffer
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');}
+    else{cin.ignore();}
 
     pos = archivo.getPosicion(dni);
     if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
@@ -123,7 +217,12 @@ void PacienteManager::modificarPAciente(){
     cout << "\n6 - Fecha de nacimiento";
     cout << "\nIndique el atributo a modificar: ";
     cin >> opc;
-    cin.ignore();
+
+    //validacion de dato ingresado
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');}
+    else{cin.ignore();}
 
     switch(opc){
     case 1:{
@@ -187,12 +286,28 @@ void PacienteManager::modificarPAciente(){
         break;}
     case 5:
         {int codObraSocial = reg.getCodObraSocial();
+        ObraSocialManager obrasSociales;
+        ObraSocialArchivo obraSocialArchivo;
+
+        //listar obras sociales
+        system("cls");
+        obrasSociales.listarObraSocial();
 
         do{
         cout << "Ingrese nuevo codigo de obra social: ";
         cin >> codObraSocial;
-        cin.ignore();
-        reg.setCodObraSocial(codObraSocial);}
+
+        //validacion de ingreso de dato valido
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');}
+        else{cin.ignore();}
+
+        //validacion de que el codigo de obra social exista
+        if(obraSocialArchivo.getPosicion(codObraSocial)==-1){
+            cout << "Codigo especialidad invalido.\n";}
+
+        else{reg.setCodObraSocial(codObraSocial);}}
         while(codObraSocial!=reg.getCodObraSocial());
 
         if(archivo.escribir(pos,reg)){
@@ -263,4 +378,17 @@ int cantReg = archivo.getCantidadRegistros();
         }
     cout << endl;
     delete[] vec;
+}
+
+void PacienteManager::altaPaciente(int dni){
+    Paciente reg;
+    int pos;
+
+    pos = archivo.getPosicion(dni,false);
+    if(pos==-1){cout << "\nEl registro no existe o ya se encuentra activo.\n"; return;}
+
+    reg = archivo.leer(pos);
+    reg.setEstado(true);
+    if(archivo.escribir(pos,reg)){cout << "\nRegistro recuperado correctamente.\n";}
+    else{cout << "\nSe produjo un error de escritura en disco.\n";}
 }

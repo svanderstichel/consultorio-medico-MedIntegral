@@ -10,16 +10,16 @@ private:
 public:
     // Constructores
     ObraSocial();
-    ObraSocial(int codigo, const char* nombre, bool estado = true);
+    ObraSocial(int codigo, std::string nombre, bool estado = true);
 
     // Setters
     bool setCodigoObraSocial(int codigo);
-    bool setNombre(const char* nombre);
+    bool setNombre(std::string nombre);
     void setEstado(bool estado);
 
     // Getters
     int getCodigoObraSocial();
-    const char* getNombre();
+    std::string getNombre();
     bool getEstado();
 };
 

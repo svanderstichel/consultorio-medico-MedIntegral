@@ -34,6 +34,7 @@
 			<Add directory="header" />
 		</Compiler>
 		<Unit filename="header/Configuracion.h" />
+		<Unit filename="header/ConfiguracionArchivo.h" />
 		<Unit filename="header/Especialidad.h" />
 		<Unit filename="header/EspecialidadArchivo.h" />
 		<Unit filename="header/EspecialidadManager.h" />
@@ -49,11 +50,12 @@
 		<Unit filename="header/PacienteArchivo.h" />
 		<Unit filename="header/PacienteManager.h" />
 		<Unit filename="header/Persona.h" />
-		<Unit filename="header/Reportes.h" />
+		<Unit filename="header/Reporte.h" />
 		<Unit filename="header/Turno.h" />
 		<Unit filename="header/TurnoArchivo.h" />
 		<Unit filename="header/TurnoManager.h" />
 		<Unit filename="source/Configuracion.cpp" />
+		<Unit filename="source/ConfiguracionArchivo.cpp" />
 		<Unit filename="source/Especialidad.cpp" />
 		<Unit filename="source/EspecialidadArchivo.cpp" />
 		<Unit filename="source/EspecialidadManager.cpp" />

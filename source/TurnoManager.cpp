@@ -1,37 +1,416 @@
 #include <iostream>
-using namespace std;
-#include "TurnoManager.h"
-#include  "FechaHora.h"
+#include <iomanip>
+#include <limits>
 #include "Turno.h"
+#include "TurnoManager.h"
+#include "MedicoManager.h"
+#include "PacienteManager.h"
+#include  "FechaHora.h"
 
+using namespace std;
 
-    void TurnoManager::altaTurno(){
-        int idTurno;
-        int dniPaciente;
-        int dniMedico;
-        FechaHora fechaAtencion;
-        FechaHora horaAtencion;
-        float importeConsulta;
+void TurnoManager::alta(){
 
-        //falta el idTurno
+    MedicoManager medico;
+    PacienteManager paciente;
+    Turno reg;
+    int idTurno;
+    int dniPaciente;
+    int dniMedico;
+    float importeConsulta;
+    FechaHora fechaHoraAtencion;
+    int contadorIntentos=0;
+    bool turnoValido=1;
 
-        cout << "Ingrese DNI del paciente: ";
-        cin >> dniPaciente;
+    ///ASIGNACION ID AUTOINCREMENTAL
+    idTurno=archivo.getCantidadRegistros()+1;
+    ///inicializa el primer id en 1
+    if(idTurno==0){idTurno++;}
+    reg.setidTurno(idTurno);
 
-        cout << "Ingrese DNI del medico: ";
-        cin >> dniMedico;
+    ///***CARGA DE DATOS***
+    ///DNI PACIENTE
+    //listado de pacientes
+    system("cls");
+    cout << "PACIENTES\n";
+    cout << "=========\n\n";
+    paciente.listarPaciente();
 
-        cout << "Ingrese la fecha de atencion (dd/mm/aaaa): " << endl;
-        fechaAtencion.cargarFecha();
+    while(reg.getDniPaciente()==1000000 && contadorIntentos<3){
+    cout << "\nIngrese DNI del paciente: ";
+    cin >> dniPaciente;
+    //validar dato numerico, limpiar error y buffer teclado
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";}
+    else{
+        cin.ignore();
+        reg.setDniPaciente(dniPaciente);}
+    contadorIntentos++;}
 
-        cout << "Ingrese la hora de atencion (hh:mm): " << endl;
-        horaAtencion.cargarHora();
+    ///verificar limite de reintentos
+    if(contadorIntentos==3 && reg.getDniPaciente()==1000000)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
 
-        cout << "Ingrese el importe de la consulta: ";
-        cin >> importeConsulta;
+    ///DNI MEDICO
+    //listado de medicos
+    system("cls");
+    cout << "MEDICOS\n";
+    cout << "=======\n\n";
+    medico.listar();
+    cout << endl;
+    while(reg.getDniMedico()==1000000 && contadorIntentos<3){
+    cout << "\nIngrese DNI del medico: ";
+    cin >> dniMedico;
+    //validar dato numerico, limpiar error y buffer teclado
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";}
+    else{
+        cin.ignore();
+        reg.setDniMedico(dniMedico);}
+    contadorIntentos++;}
 
-        Turno nuevoTurno(idTurno, dniPaciente, dniMedico, fechaAtencion, horaAtencion, importeConsulta);
+    ///verificar limite de reintentos
+    if(contadorIntentos==3 && reg.getDniMedico()==1000000)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
 
-        cout << "Turno generado #: " << idTurno << endl;
+    ///FECHA Y HORA DE TURNO
+    //listado de turnos ocupados
+    system("cls");
+    cout << "TURNOS OCUPADOS\n";
+    cout << "===============\n\n";
+    listar();
+    do{
+    turnoValido=1;
+    cout << "\nFecha de atencion" << endl;
+    fechaHoraAtencion.cargarFecha();
 
+    cout << "\nHora de atencion" << endl;
+    fechaHoraAtencion.cargarHora();
+
+    ///validar que la fechaHora de atencion y el medico no esten ocupados por otro turno
+    int cantRegistros=archivo.getCantidadRegistros();
+    Turno *vec;
+
+    if(cantRegistros>0){
+        vec=new Turno[cantRegistros];
+        if(vec==nullptr){cout <<"\nSe produjo un error de asignacion de memoria.\n";return;}
+
+        archivo.leer(cantRegistros,vec);
+
+        for(int i=0;i<cantRegistros;i++){
+            if(vec[i].getFechaHoraAtencion()==fechaHoraAtencion &&
+               vec[i].getDniMedico()==reg.getDniMedico())
+               {turnoValido=0;
+                break;}}
+        delete[] vec;}
+
+    if(turnoValido){reg.setFechaHoraAtencion(fechaHoraAtencion);}
+    else{cout << "\nTurno invalido, el medico ya tiene un turno asignado en ese horario.\n";}
+
+    contadorIntentos++;
+
+    }while(!turnoValido && contadorIntentos<3);
+
+    ///verificar limite de reintentos
+    if(contadorIntentos==3 && !turnoValido)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///IMPORTE CONSULTA
+    while(reg.getImporteConsulta()==0 && contadorIntentos<3){
+    cout << "\nIngrese el importe de la consulta: ";
+    cin >> importeConsulta;
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";}
+    else{
+        cin.ignore();
+        reg.setImporteConsulta(importeConsulta);}
+    contadorIntentos++;}
+
+    ///verificar limite de reintentos
+    if(contadorIntentos==3 && reg.getImporteConsulta()==0)
+    {cout<<"\nHas excedido el limite de reintentos.\n";return;}
+    else{contadorIntentos=0;}
+
+    ///ESCRITURA EN DISCO
+    if(archivo.escribir(reg)){cout <<"\nTurno cargado correctamente!\n";}
+    else{cout <<"\nSe produjo un error de escritura en disco.\n";}
+}
+
+void TurnoManager::baja(){
+    Turno reg;
+    int idTurno;
+    int pos;
+
+    system("cls");
+    cout << "TURNOS\n";
+    cout << "======\n\n";
+    listar();
+
+    cout << "Ingrese el id del turno que desea dar de baja: ";
+    cin >> idTurno;
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";}
+    else{
+        cin.ignore();}
+
+    pos = archivo.getPosicion(idTurno);
+    if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
+
+    if(pos!=-1){
+    reg = archivo.leer(pos);
+
+    reg.setEstado(false);
+    if(archivo.escribir(pos,reg)){
+            cout << "\nEl turno fue dado de baja correctamente.\n";
+        }else{cout << "\nSe produjo un error de escritura en el disco.\n";}
     }
+
+}
+void TurnoManager::listar(){
+    int cantReg = archivo.getCantidadRegistros();
+    Turno *vec;
+
+    if(cantReg<=0){cout <<"No se registran turnos activos.\n";return;}
+
+    vec = new Turno[cantReg];
+    if(vec==nullptr){cout <<"\nSe produjo un error de asignacion de memoria.\n";return;}
+
+    archivo.leer(cantReg,vec);
+
+    ///print de tabla
+    ///encabezado de columnas
+    cout << left
+         << setw(12)  << "ID Turno"
+         << setw(15) << "DNI Medico"
+         << setw(15) << "DNI Paciente"
+         << setw(10) << "Importe"
+         << setw(15) << "Fecha"
+         << setw(6) << "Horario"
+         << endl;
+
+    cout << string(80, '-') << endl;///barra separadora
+
+    for (int i = 0; i < cantReg; i++) {
+        if (vec[i].getEstado()) {
+        cout << left
+             << setw(12) << vec[i].getidTurno()
+             << setw(15) << vec[i].getDniMedico()
+             << setw(15) << vec[i].getDniPaciente()
+             << setw(10) << vec[i].getImporteConsulta()
+             << setw(15) << (to_string(vec[i].getFechaHoraAtencion().getDia()) + "/" +
+                             to_string(vec[i].getFechaHoraAtencion().getMes()) + "/" +
+                             to_string(vec[i].getFechaHoraAtencion().getAnio()))
+             << setw(6) << vec[i].getFechaHoraAtencion().getHora()
+             << endl;
+                 }
+        }
+    cout << endl;
+    delete[] vec;
+}
+void TurnoManager::modificar(){
+    Turno reg;
+    int idTurno;
+    int pos;
+    int opc;
+
+    system("cls");
+    cout << "TURNOS\n";
+    cout << "===============\n\n";
+    listar();
+
+    cout << "\nIngrese el ID del turno: ";
+    cin >> idTurno;
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";}
+    else{
+        cin.ignore();}
+
+    pos = archivo.getPosicion(idTurno);
+    if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
+
+    if(pos!=-1){
+    reg = archivo.leer(pos);
+
+    cout << "\n1 - Medico";
+    cout << "\n2 - Paciente";
+    cout << "\n3 - Importe";
+    cout << "\n4 - Fecha";
+    cout << "\n5 - Horario\n";
+    cout << "\nIndique el atributo a modificar: ";
+    cin >> opc;
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";}
+    else{
+        cin.ignore();}
+
+    switch(opc){
+    case 1:
+        {int dniMedico = reg.getDniMedico();
+
+        do{
+        cout << "Ingrese nuevo dni de medico: ";
+        cin >> dniMedico;
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout << "\nEntrada invalida.\n";}
+        else{
+            cin.ignore();
+            reg.setDniMedico(dniMedico);}
+        }while(dniMedico!=reg.getDniMedico());
+
+        if(archivo.escribir(pos,reg)){
+            cout << "\nRegistro modificado correctamente.\n";
+        } else{
+            cout << "\nSe produjo un error de escritura en disco.\n";}
+
+        break;}
+    case 2:
+        {int dniPaciente = reg.getDniPaciente();
+
+        do{
+        cout << "Ingrese nuevo dni de paciente: ";
+        cin >> dniPaciente;
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout << "\nEntrada invalida.\n";}
+        else{
+            cin.ignore();
+            reg.setDniPaciente(dniPaciente);}
+        }while(dniPaciente!=reg.getDniPaciente());
+
+        if(archivo.escribir(pos,reg)){
+            cout << "\nRegistro modificado correctamente.\n";
+        } else{
+            cout << "\nSe produjo un error de escritura en disco.\n";}
+
+        break;}
+    case 3:
+        {float importeConsulta = reg.getImporteConsulta();
+
+        do{
+        cout << "Ingrese nuevo importe: ";
+        cin >> importeConsulta;
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout << "\nEntrada invalida.\n";}
+        else{
+            cin.ignore();
+            reg.setImporteConsulta(importeConsulta);}
+        }while(importeConsulta!=reg.getImporteConsulta());
+
+        if(archivo.escribir(pos,reg)){
+            cout << "\nRegistro modificado correctamente.\n";
+        } else{
+            cout << "\nSe produjo un error de escritura en disco.\n";}
+        break;}
+    case 4:
+        {FechaHora fechaHoraAtencion = reg.getFechaHoraAtencion();
+        FechaHora aux;
+
+        do{
+        cout << "Ingrese nueva fecha\n";
+        fechaHoraAtencion.cargarFecha();
+        reg.setFechaHoraAtencion(fechaHoraAtencion);
+        aux=reg.getFechaHoraAtencion();}
+        while(fechaHoraAtencion!=aux);
+
+        if(archivo.escribir(pos,reg)){
+            cout << "\nRegistro modificado correctamente.\n";
+        } else{
+            cout << "\nSe produjo un error de escritura en disco.\n";}
+        break;}
+    case 5:
+        {FechaHora fechaHoraAtencion = reg.getFechaHoraAtencion();
+        FechaHora aux;
+
+        do{
+        cout << "Ingrese nueva hora\n";
+        fechaHoraAtencion.cargarHora();
+        reg.setFechaHoraAtencion(fechaHoraAtencion);
+        aux=reg.getFechaHoraAtencion();}
+        while(fechaHoraAtencion!=aux);
+
+        if(archivo.escribir(pos,reg)){
+            cout << "\nRegistro modificado correctamente.\n";
+        } else{
+            cout << "\nSe produjo un error de escritura en disco.\n";}
+        break;}
+
+    default:
+        cout << "\nOpcion invalida.\n";
+        break;}
+    }
+}
+void TurnoManager::buscar(){
+    Turno reg;
+    int idTurno;
+    int pos;
+
+    cout << "Ingrese el ID del turno: ";
+    cin >> idTurno;
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "\nEntrada invalida.\n";}
+    else{
+        cin.ignore();}
+
+    pos = archivo.getPosicion(idTurno);
+    if(pos==-1){cout << "\nEl registro no existe en el disco.\n";}
+
+    if(pos!=-1){reg = archivo.leer(pos);
+
+    ///print de tabla
+    ///encabezado de columnas
+    cout << endl;
+    cout << left
+         << setw(15) << "DNI Medico"
+         << setw(15) << "DNI Paciente"
+         << setw(10) << "Importe"
+         << setw(15) << "Fecha"
+         << setw(6) << "Horario"
+         << endl;
+
+    cout << string(80, '-') << endl;///barra separadora
+
+    cout << left
+     << setw(15) << reg.getDniMedico()
+     << setw(15) << reg.getDniPaciente()
+     << setw(10) << reg.getImporteConsulta()
+     << setw(15) << (to_string(reg.getFechaHoraAtencion().getDia()) + "/" +
+                     to_string(reg.getFechaHoraAtencion().getMes()) + "/" +
+                     to_string(reg.getFechaHoraAtencion().getAnio()))
+     << setw(6) << reg.getFechaHoraAtencion().getHora()
+     << endl << endl;}
+}
+void TurnoManager::alta(int idTurno){
+    Turno reg;
+    int pos;
+
+    pos = archivo.getPosicion(idTurno,false);
+    if(pos==-1){cout << "\nEl registro no existe o ya se encuentra activo.\n"; return;}
+
+    reg = archivo.leer(pos);
+    reg.setEstado(true);
+    if(archivo.escribir(pos,reg)){cout << "\nRegistro recuperado correctamente.\n";}
+    else{cout << "\nSe produjo un error de escritura en disco.\n";}
+}
+void TurnoManager::exportarCSV(){}
