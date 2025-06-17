@@ -175,3 +175,23 @@ void ObraSocialManager::altaObraSocial(int codObraSocial){
     if(archivo.escribir(pos,reg)){cout << "\nRegistro recuperado correctamente.\n";}
     else{cout << "\nSe produjo un error de escritura en disco.\n";}
 }
+
+void ObraSocialManager::exportarCSV(){
+    int cantReg = archivo.getCantidadRegistros();
+    ObraSocial *vec;
+
+    if(cantReg<=0){cout <<"No se registran obras sociales activas.\n";return;}
+
+    vec = new ObraSocial[cantReg];
+    if(vec==nullptr){cout <<"\nSe produjo un error de asignacion de memoria.\n";return;}
+
+    archivo.leer(cantReg,vec);
+
+    cout << "codigo,obra_social\n";
+    for(int i=0;i<cantReg;i++){
+        if(vec[i].getEstado()){
+        cout << vec[i].getCodigoObraSocial() << ",";
+        cout << vec[i].getNombre() <<  "\n";}}
+
+    delete[] vec;
+}

@@ -17,6 +17,7 @@ class TurnoArchivo{
         bool escribir(Turno reg);
         ///modificar un registro
         bool escribir(int pos,Turno reg);
+        void exportarCSV();
     private:
         char _nombreArchivo[50];
 };

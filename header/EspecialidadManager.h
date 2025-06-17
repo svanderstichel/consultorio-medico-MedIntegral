@@ -8,6 +8,7 @@ class EspecialidadManager{
         void bajaEspecialidad();
         void listarEspecialidad();
         void modificarEspecialidad();
+        void exportarCSV();
     private:
         EspecialidadArchivo archivo;
 };

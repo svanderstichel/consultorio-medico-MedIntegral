@@ -328,8 +328,50 @@ void Configuracion::exportarCSV(){
             cout << "\nExportando CSV...\n\n";
             system("pause");
             cout << endl << endl;
+            system("cls");
             obj.exportarCSV();
             cout << endl;
+            system("pause");
+            break;}
+        case 2:{
+            PacienteManager obj;
+            cout << "\nExportando CSV...\n\n";
+            system("pause");
+            cout << endl << endl;
+            system("cls");
+            obj.exportarCSV();
+            cout << endl;
+            system("pause");
+            break;}
+        case 3:{
+            TurnoManager obj;
+            cout << "\nExportando CSV...\n\n";
+            system("pause");
+            cout << endl << endl;
+            system("cls");
+            obj.exportarCSV();
+            cout << endl;
+            system("pause");
+            break;}
+        case 4:{
+            ObraSocialManager obj;
+            cout << "\nExportando CSV...\n\n";
+            system("pause");
+            cout << endl << endl;
+            system("cls");
+            obj.exportarCSV();
+            cout << endl;
+            system("pause");
+            break;}
+        case 5:{
+            EspecialidadManager obj;
+            cout << "\nExportando CSV...\n\n";
+            system("pause");
+            system("cls");
+            cout << endl << endl;
+            obj.exportarCSV();
+            cout << endl;
+            system("pause");
             break;}
         case 0:
             cout << "\nVolviendo al menu anterior...\n\n";

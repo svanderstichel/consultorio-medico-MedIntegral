@@ -413,4 +413,28 @@ void TurnoManager::alta(int idTurno){
     if(archivo.escribir(pos,reg)){cout << "\nRegistro recuperado correctamente.\n";}
     else{cout << "\nSe produjo un error de escritura en disco.\n";}
 }
-void TurnoManager::exportarCSV(){}
+void TurnoManager::exportarCSV(){
+    int cantReg = archivo.getCantidadRegistros();
+    Turno *vec;
+
+    if(cantReg<=0){cout <<"No se registran turnos activos.\n";return;}
+
+    vec = new Turno[cantReg];
+    if(vec==nullptr){cout <<"\nSe produjo un error de asignacion de memoria.\n";return;}
+
+    archivo.leer(cantReg,vec);
+
+    cout << "dni_medico,dni_paciente,importe,fecha,horario\n";
+    for(int i=0;i<cantReg;i++){
+        if(vec[i].getEstado()){
+        cout << vec[i].getDniMedico() << ",";
+        cout << vec[i].getDniPaciente() << ",";
+        cout << vec[i].getImporteConsulta() << ",";
+        cout << vec[i].getFechaHoraAtencion().getDia() << "/";
+        cout << vec[i].getFechaHoraAtencion().getMes() << "/";
+        cout << vec[i].getFechaHoraAtencion().getAnio() << ",";
+        cout << vec[i].getFechaHoraAtencion().getHora() << "\n";}}
+
+    delete[] vec;
+}
+
