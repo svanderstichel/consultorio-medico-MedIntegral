@@ -6,3 +6,4 @@ backup/
 # Ignorar archivos .layout
 *.layout
 *.depend
+*.dat
