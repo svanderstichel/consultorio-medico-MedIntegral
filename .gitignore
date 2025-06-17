@@ -8,3 +8,4 @@ obj/
 
 # Ignorar archivos .dat
 *.dat
+backup/
