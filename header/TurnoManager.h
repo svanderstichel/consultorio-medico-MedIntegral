@@ -7,6 +7,7 @@ class TurnoManager{
         void baja();
         void modificar();
         void listar();
+        void listar(int dniMedico);
         void buscar();
         void alta(int idTurno);
         void exportarCSV();

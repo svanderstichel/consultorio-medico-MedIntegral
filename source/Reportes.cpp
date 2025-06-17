@@ -16,21 +16,21 @@ void Reporte::cantidadPacientesMedico(){
     Medico reg2;
     TurnoArchivo archivo1;
     MedicoArchivo archivo2;
-    std::set<int> pacientesUnicos;
     int cantTurno = archivo1.getCantidadRegistros();
     int cantMedico = archivo2.getCantidadRegistros();
 
+    cout << "- Cantidad de pacientes atendidos por medico." << endl << endl;
     for (int i=0;i<cantMedico;i++){
         reg2 = archivo2.leer(i);
+        std::set<int> pacientesUnicos;
             for (int j=0;j<cantTurno;j++){
             reg1 = archivo1.leer(j);
             if(reg2.getDni() == reg1.getDniMedico()){
-                //pacientePorMedico++;
-                pacientesUnicos.insert(reg1.getDniPaciente());
+            pacientesUnicos.insert(reg1.getDniPaciente());
             }
         }
         if (reg2.getEstado() == 1 && !pacientesUnicos.empty()) {
-            cout << "El medico " << reg2.getApellido() << " tiene " << pacientesUnicos.size() << " paciente(s) unicos." << endl;
+            cout << "- " << reg2.getApellido() << " " << reg2.getNombre() << ": " << pacientesUnicos.size() << " paciente(s)." << endl;
         }
     }
 }
@@ -43,8 +43,10 @@ void Reporte::cantidadTurnosMedico(){
     int cantTurno = archivo1.getCantidadRegistros();
     int cantMedico = archivo2.getCantidadRegistros();
 
+    cout << "- Cantidad de turnos registrados por medico." << endl << endl;
     for (int i=0;i<cantMedico;i++){
         reg2 = archivo2.leer(i);
+        turnosTotales = 0;
             for (int j=0;j<cantTurno;j++){
             reg1 = archivo1.leer(j);
             if(reg2.getDni() == reg1.getDniMedico()){
@@ -52,9 +54,8 @@ void Reporte::cantidadTurnosMedico(){
             }
         }
         if (reg2.getEstado() == 1) {
-            cout << "El medico " << reg2.getApellido() << " tiene " << turnosTotales << " turnos registrados." << endl;
+            cout << "- " << reg2.getApellido() << " " << reg2.getNombre() << ": " << turnosTotales << " turnos registrados." << endl;
         }
-        turnosTotales = 0;
     }
 }
 void Reporte::cantidadTurnosPaciente(){
@@ -66,17 +67,18 @@ void Reporte::cantidadTurnosPaciente(){
     int cantTurno = archivo1.getCantidadRegistros();
     int cantPaciente = archivo2.getCantidadRegistros();
 
+    cout << "- Cantidad de turnos registrados por paciente." << endl << endl;
     for (int i=0;i<cantPaciente;i++){
         reg2 = archivo2.leer(i);
+        turnosTotales = 0;
             for (int j=0;j<cantTurno;j++){
             reg1 = archivo1.leer(j);
             if(reg2.getDni() == reg1.getDniPaciente()){
                 turnosTotales++;
             }
         }
-        if (reg2.getEstado() == 1) {
-            cout << "El paciente " << reg2.getApellido() << " tiene " << turnosTotales << " turnos registrados." << endl;
+        if (reg2.getEstado() == 1 && turnosTotales > 0) {
+            cout << "- " << reg2.getApellido() << " " << reg2.getNombre() << ": " << turnosTotales << " turnos registrados." << endl;
         }
-        turnosTotales = 0;
     }
 }
