@@ -8,6 +8,7 @@ class PacienteManager{
         void bajaPaciente();
         void listarPaciente();
         void modificarPAciente();
+        void exportarCSV();
     private:
         PacienteArchivo archivo;
 };

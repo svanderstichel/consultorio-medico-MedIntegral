@@ -457,4 +457,6 @@ void MedicoManager::exportarCSV(){
         cout << vec[i].getInicioActividad().getDia() << "/";
         cout << vec[i].getInicioActividad().getMes() << "/";
         cout << vec[i].getInicioActividad().getAnio() << "\n";}}
+
+    delete[] vec;
 }

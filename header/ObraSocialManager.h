@@ -8,6 +8,7 @@ public:
     void bajaObraSocial();
     void modificarObraSocial();
     void listarObraSocial();
+    void exportarCSV();
 private:
     ObraSocialArchivo archivo;
 };

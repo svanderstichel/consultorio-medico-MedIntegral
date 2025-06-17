@@ -392,3 +392,29 @@ void PacienteManager::altaPaciente(int dni){
     if(archivo.escribir(pos,reg)){cout << "\nRegistro recuperado correctamente.\n";}
     else{cout << "\nSe produjo un error de escritura en disco.\n";}
 }
+void PacienteManager::exportarCSV(){
+    int cantReg = archivo.getCantidadRegistros();
+    Paciente *vec;
+
+    if(cantReg<=0){cout <<"No se registran pacientes activos.\n";return;}
+
+    vec = new Paciente[cantReg];
+    if(vec==nullptr){cout <<"\nSe produjo un error de asignacion de memoria.\n";return;}
+
+    archivo.leer(cantReg,vec);
+
+    cout << "dni,apellido,nombre,email,telefono,cod_obra_social,inicio_actividad\n";
+    for(int i=0;i<cantReg;i++){
+        if(vec[i].getEstado()){
+        cout << vec[i].getDni() << ",";
+        cout << vec[i].getApellido() << ",";
+        cout << vec[i].getNombre() << ",";
+        cout << vec[i].getEmail() << ",";
+        cout << vec[i].getTelefono() << ",";
+        cout << vec[i].getCodObraSocial() << ",";
+        cout << vec[i].getFechaNacimiento().getDia() << "/";
+        cout << vec[i].getFechaNacimiento().getMes() << "/";
+        cout << vec[i].getFechaNacimiento().getAnio() <<  "\n";}}
+
+    delete[] vec;
+}
