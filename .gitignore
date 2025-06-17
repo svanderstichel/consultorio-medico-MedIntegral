@@ -1,6 +1,7 @@
 # Ignorar carpetas de compilación
 bin/
 obj/
+backup/
 
 # Ignorar archivos .layout
 *.layout
