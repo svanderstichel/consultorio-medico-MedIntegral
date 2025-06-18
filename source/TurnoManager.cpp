@@ -84,7 +84,7 @@ void TurnoManager::alta(){
     system("cls");
     cout << "TURNOS OCUPADOS\n";
     cout << "===============\n\n";
-    listar();
+    listar(dniMedico);
     do{
     turnoValido=1;
     cout << "\nFecha de atencion" << endl;
@@ -208,6 +208,43 @@ void TurnoManager::listar(){
              << setw(15) << vec[i].getDniMedico()
              << setw(15) << vec[i].getDniPaciente()
              << setw(10) << vec[i].getImporteConsulta()
+             << setw(15) << (to_string(vec[i].getFechaHoraAtencion().getDia()) + "/" +
+                             to_string(vec[i].getFechaHoraAtencion().getMes()) + "/" +
+                             to_string(vec[i].getFechaHoraAtencion().getAnio()))
+             << setw(6) << vec[i].getFechaHoraAtencion().getHora()
+             << endl;
+                 }
+        }
+    cout << endl;
+    delete[] vec;
+}
+void TurnoManager::listar(int dniMedico){
+    int cantReg = archivo.getCantidadRegistros();
+    Turno *vec;
+
+    if(cantReg<=0){cout <<"No se registran turnos activos.\n";return;}
+
+    vec = new Turno[cantReg];
+    if(vec==nullptr){cout <<"\nSe produjo un error de asignacion de memoria.\n";return;}
+
+    archivo.leer(cantReg,vec);
+
+    ///print de tabla
+    ///encabezado de columnas
+    cout << left
+         << setw(12)  << "ID Turno"
+         << setw(15) << "DNI Medico"
+         << setw(15) << "Fecha"
+         << setw(6) << "Horario"
+         << endl;
+
+    cout << string(80, '-') << endl;///barra separadora
+
+    for (int i = 0; i < cantReg; i++) {
+        if (vec[i].getEstado() && vec[i].getDniMedico() == dniMedico) {
+        cout << left
+             << setw(12) << vec[i].getidTurno()
+             << setw(15) << vec[i].getDniMedico()
              << setw(15) << (to_string(vec[i].getFechaHoraAtencion().getDia()) + "/" +
                              to_string(vec[i].getFechaHoraAtencion().getMes()) + "/" +
                              to_string(vec[i].getFechaHoraAtencion().getAnio()))
