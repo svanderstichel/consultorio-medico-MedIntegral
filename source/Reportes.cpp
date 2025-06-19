@@ -236,15 +236,13 @@ void Reporte::cantidadPacientesMedico(){
                 regTurno = archivoTurnos.leer(j);
                 if(regMedico.getDni() == regTurno.getDniMedico()){
                         //inserta dni paciente en la lista de valores unicos
-                        pacientesUnicos.insert(regTurno.getDniPaciente());
-                    }
-                }
-            }
+                        pacientesUnicos.insert(regTurno.getDniPaciente());}}
+
          cout << left
          << setw(30) << regMedico.getApellido() + " " + regMedico.getNombre()
          //obtener cantidad de elementos de la lista de pacientes
          << setw(21) << pacientesUnicos.size()
-         << setfill(' ') << endl;}
+         << setfill(' ') << endl;}}
          cout << endl;
 }
 void Reporte::cantidadTurnosMedico(){
@@ -271,12 +269,11 @@ void Reporte::cantidadTurnosMedico(){
             for (int j=0;j<cantTurno;j++){
             regTurno = archivoTurnos.leer(j);
             if(regMedico.getDni() == regTurno.getDniMedico()){
-                turnosTotales++;}}}
+                turnosTotales++;}}
     cout << left
          << setw(30) << regMedico.getApellido() + " " + regMedico.getNombre()
          << setw(18) << turnosTotales
-         << setfill(' ') << endl;
-    }
+         << setfill(' ') << endl;}}
     cout << endl;
 }
 void Reporte::cantidadTurnosPaciente(){
@@ -303,11 +300,11 @@ void Reporte::cantidadTurnosPaciente(){
             for (int j=0;j<cantTurno;j++){
             regTurno = archivoTurnos.leer(j);
             if(regPaciente.getDni() == regTurno.getDniPaciente()){
-                turnosTotales++;}}}
+                turnosTotales++;}}
     cout << left
          << setw(30) << regPaciente.getApellido() + " " + regPaciente.getNombre()
          << setw(18) << turnosTotales
          << setfill(' ') << endl;
-    }
+    }}
     cout << endl;
 }
