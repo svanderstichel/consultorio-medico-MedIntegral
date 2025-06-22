@@ -21,6 +21,9 @@ void PacienteManager::altaPaciente(){
     ObraSocialArchivo obraSocialArchivo;
     int contadorIntentos=0;
 
+    system("cls");
+    cout << "<Alta de paciente>\n\n";
+
     ///***CARGA DE DATOS***///
     ///DNI
     while(reg.getDni()==1000000 && contadorIntentos<3){
@@ -124,7 +127,9 @@ void PacienteManager::altaPaciente(){
     else{contadorIntentos=0;}
 
     ///FECHA DE NACIMIENTO
+    system("cls");
     cout << "Fecha de Nacimiento\n";
+    cout << "===================\n\n";
     fechaNacimiento.cargarFecha();
     reg.setFechaNacimiento(fechaNacimiento);
 
@@ -137,7 +142,6 @@ void PacienteManager::bajaPaciente(){
     int dni, pos;
 
     //listar pacientes
-    system("cls");
     listarPaciente();
 
     //ingreso de dni
@@ -167,7 +171,6 @@ void PacienteManager::modificarPAciente(){
     int dni, pos, opc;
 
     //listar pacientes
-    system("cls");
     listarPaciente();
 
     cout << "\nIngrese el DNI del paciente a modificar: ";
@@ -186,6 +189,7 @@ void PacienteManager::modificarPAciente(){
 
     ///print de tabla
     ///encabezado de columnas
+    system("cls");
     cout << endl << left
          << setw(15) << "Apellido"
          << setw(15) << "Nombre"
@@ -215,7 +219,7 @@ void PacienteManager::modificarPAciente(){
     cout << "\n4 - Telefono";
     cout << "\n5 - Codigo OS";
     cout << "\n6 - Fecha de nacimiento";
-    cout << "\nIndique el atributo a modificar: ";
+    cout << "\n\nIndique el atributo a modificar: ";
     cin >> opc;
 
     //validacion de dato ingresado
@@ -319,7 +323,9 @@ void PacienteManager::modificarPAciente(){
     case 6:
         {FechaHora fechaNacimiento;
 
-        cout << "\nIngrese nueva fecha de nacimiento\n";
+        system("cls");
+        cout << "\nNueva fecha de nacimiento\n";
+        cout << "=========================\n\n";
         fechaNacimiento.cargarFecha();
         reg.setFechaNacimiento(fechaNacimiento);}
 
@@ -340,6 +346,7 @@ void PacienteManager::listarPaciente(){
 int cantReg = archivo.getCantidadRegistros();
     Paciente *vec;
 
+    system("cls");
     if(cantReg<=0){cout <<"No se registran pacientes activos.\n";return;}
 
     vec = new Paciente[cantReg];

@@ -13,6 +13,9 @@ void EspecialidadManager::altaEspecialidad() {
     Especialidad reg;
     int intentos = 0;
 
+    system("cls");
+    cout << "<Nueva especialidad>\n\n";
+
     ///ASIGNACION ID AUTOINCREMENTAL
     codEspecialidad=archivo.getCantidadRegistros()+1;
     //inicializa el primer id en 1
@@ -78,7 +81,7 @@ void EspecialidadManager::modificarEspecialidad() {
     system("cls");
     listarEspecialidad();
 
-    cout << "\nIngresar codigo de especialidad a modificar (0 para cancelar): ";
+    cout << "Ingresar codigo de especialidad a modificar (0 para cancelar): ";
     cin >> codEspecialidad;
     //validar ingreso de dato valido
     if(cin.fail()){
@@ -118,6 +121,8 @@ void EspecialidadManager::listarEspecialidad(){
 int cantReg = archivo.getCantidadRegistros();
     Especialidad *vec;
 
+    system("cls");
+
     if(cantReg<=0){cout <<"No se registran especialidades activas.\n";return;}
 
     vec = new Especialidad[cantReg];
@@ -126,16 +131,16 @@ int cantReg = archivo.getCantidadRegistros();
     archivo.leer(cantReg,vec);
 
     cout << left
-         << setw(7) << "Codigo"
+         << setw(10) << "Codigo"
          << setw(13) << "Especialidad"
          << endl;
 
-    cout << "======+=============" << endl;///barra separadora
+    cout << "=======================" << endl;///barra separadora
 
     for (int i = 0; i < cantReg; i++) {
         if (vec[i].getEstado()) {
             cout << left ///establece alineacion
-                << setw(7) << vec[i].getCodEspecialidad()
+                << setw(10) << vec[i].getCodEspecialidad()
                 << setw(13) << vec[i].getNombre()
                 << setfill(' ') << endl;}}///establece char de relleno
     cout << endl;

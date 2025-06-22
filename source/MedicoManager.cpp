@@ -21,6 +21,9 @@ void MedicoManager::alta(){
     Medico reg;
     int contadorIntentos=0;
 
+    system("cls");
+    cout << "<Alta de medico>\n\n";
+
     ///***CARGA DE DATOS***///
     ///DNI
     while(reg.getDni()==1000000 && contadorIntentos<3){
@@ -123,12 +126,16 @@ void MedicoManager::alta(){
     else{contadorIntentos=0;}
 
     ///FECHA NACIMIENTO
-    cout << "\nFecha de Nacimiento\n";
+    system("cls");
+    cout << "Fecha de Nacimiento\n";
+    cout << "===================\n";
     fechaNacimiento.cargarFecha();
     reg.setFechaNacimiento(fechaNacimiento);
 
     ///FECHA INICIO ACTIVIDAD
-    cout << "\nFecha de inicio de actividad\n";
+    system("cls");
+    cout << "Fecha de inicio de actividad\n";
+    cout << "============================\n";
     inicioActividad.cargarFecha();
     reg.setInicioActividad(inicioActividad);
 
@@ -140,6 +147,7 @@ void MedicoManager::listar(){
     int cantReg = archivo.getCantidadRegistros();
     Medico *vec;
 
+    system("cls");
     if(cantReg<=0){cout <<"No se registran medicos activos.\n";return;}
 
     vec = new Medico[cantReg];
@@ -184,10 +192,9 @@ void MedicoManager::baja(){
     int dni;
     int pos;
 
-    cout << endl;
     listar();
 
-    cout << "Ingrese el DNI del medico: ";
+    cout << "Ingrese el DNI del medico a dar de baja: ";
     cin >> dni;
     if(cin.fail()){
         cin.clear();
@@ -216,7 +223,7 @@ void MedicoManager::modificar(){
     cout << endl;
     listar();
 
-    cout << "\nIngrese el DNI del medico: ";
+    cout << "\nIngrese el DNI del medico a modificar: ";
     cin >> dni;
     if(cin.fail()){
         cin.clear();
@@ -232,6 +239,7 @@ void MedicoManager::modificar(){
 
     ///print de tabla
     ///encabezado de columnas
+    system("cls");
     cout << endl << left
          << setw(15) << "Apellido"
          << setw(15) << "Nombre"
@@ -261,7 +269,7 @@ void MedicoManager::modificar(){
     cout << "\n4 - Telefono";
     cout << "\n5 - Codigo de especialidad";
     cout << "\n6 - Fecha de nacimiento";
-    cout << "\nIndique el atributo a modificar: ";
+    cout << "\n\nIndique el atributo a modificar: ";
     cin >> opc;
     if(cin.fail()){
         cin.clear();
@@ -359,7 +367,9 @@ void MedicoManager::modificar(){
     case 6:
         {FechaHora fechaNacimiento;
 
+        system("cls");
         cout << "\nIngrese nueva fecha de nacimiento\n";
+        cout << "=================================\n\n";
         fechaNacimiento.cargarFecha();
         reg.setFechaNacimiento(fechaNacimiento);}
 
@@ -381,6 +391,7 @@ void MedicoManager::buscar(){
     int dni;
     int pos;
 
+    cout << "\n<Buscar medico>\n";
     cout << "Ingrese el DNI del medico: ";
     cin >> dni;
     if(cin.fail()){

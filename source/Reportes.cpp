@@ -19,6 +19,9 @@ void Reporte::recaudacionAnualMensual(){
      TurnoArchivo archivo;
     int cantidad = archivo.getCantidadRegistros();
 
+    system("cls");
+    cout << "<Recaudacion anual y mensual>\n\n";
+
     if (cantidad <= 0) {
         cout << "No hay registros de turnos cargados.\n";
         return;
@@ -84,12 +87,12 @@ void Reporte::recaudacionAnualMensual(){
 
         if (fh.getAnio() == anio && (fh.getMes() == mes) && vec[i].getEstado()) {
             recaudacion += vec[i].getImporteConsulta();}}
-
-        cout << "\n<Recaudacion del periodo " << mes << "-" << anio <<  ": " << fixed << setprecision(2) << recaudacion << ">";
+        cout << "\n===================================================\n";
+        cout << "Recaudacion del periodo " << anio << "-" << mes <<  ": " << fixed << setprecision(2) << recaudacion << "\n";
 
         }
 
-    cout << endl << endl;
+    cout << endl;
     delete[] vec;
 
 }

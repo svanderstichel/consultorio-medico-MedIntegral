@@ -13,6 +13,9 @@ void ObraSocialManager::altaObraSocial() {
     string nombre;
     int intentos = 0;
 
+    system("cls");
+    cout << "<Alta de obra social>\n\n";
+
     ///ASIGNACION ID AUTOINCREMENTAL
     codigo=archivo.getCantidadRegistros()+1;
     //inicializa el primer id en 1
@@ -43,6 +46,8 @@ void ObraSocialManager::altaObraSocial() {
 void ObraSocialManager::listarObraSocial() {
     int cantidad = archivo.getCantidadRegistros();
     ObraSocial* vec;
+
+    system("cls");
 
     if (cantidad <= 0) {
         cout << "No hay obras sociales registradas.\n";
