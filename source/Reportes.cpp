@@ -142,7 +142,7 @@ void Reporte::recaudacionObraSocial(){
      << setw(10) << "Total ($)" << endl;
     cout << string(30, '=') << endl;
     //valores
-    for(int i=0;i<15;i++){
+    for(int i=0;i<20;i++){
     reg=obrasocialArchivo.leer(i);
         if(reg.getEstado()){
         cout << left
@@ -197,7 +197,7 @@ void Reporte::recaudacionEspecialidad(){
      << setw(10) << "Total ($)" << endl;
     cout << string(35, '=') << endl;
     //valores
-    for(int i=0;i<10;i++){
+    for(int i=0;i<20;i++){
     reg = especialidadArchivo.leer(i);
     if(reg.getEstado()){
         cout << left
