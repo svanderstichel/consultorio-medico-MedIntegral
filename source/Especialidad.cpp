@@ -26,7 +26,7 @@ std::string Especialidad::getNombre(){
 ///setters
 void Especialidad::setCodEspecialidad(int codEspecialidad){
     if(codEspecialidad < 0){
-        std::cout << "Código ingresado incorrecto. No puede ser negativo";
+        std::cout << "Codigo ingresado incorrecto. No puede ser negativo";
         return;
     }
     _codEspecialidad = codEspecialidad;
