@@ -79,19 +79,15 @@ void Menu::menuPaciente() {
 
         switch (opcion) {
             case 1:
-                cout << "\n<Alta de paciente>\n\n";
                 obj.altaPaciente();
                 break;
             case 2:
-                cout << "\n<Baja de paciente>\n\n";
                 obj.bajaPaciente();
                 break;
             case 3:
-                cout << "\n<Modificar paciente>\n\n";
                 obj.modificarPAciente();
                 break;
             case 4:
-                cout << "\n<Listar pacientes>\n\n";
                 obj.listarPaciente();
                 break;
             case 0:
@@ -130,23 +126,18 @@ void Menu::menuMedico() {
 
         switch (opcion) {
             case 1:
-                cout << "\n<Alta de medico>\n\n";
                 obj.alta();
                 break;
             case 2:
-                cout << "\n<Baja de medico>\n\n";
                 obj.baja();
                 break;
             case 3:
-                cout << "\n<Modificar medico>\n\n";
                 obj.modificar();
                 break;
             case 4:
-                cout << "\n<Listar medicos>\n\n";
                 obj.listar();
                 break;
             case 5:
-                cout << "\n<Buscar medico>\n\n";
                 obj.buscar();
                 break;
             case 0:
@@ -184,23 +175,18 @@ void Menu::menuTurno() {
 
         switch (opcion) {
             case 1:
-                cout << "\n<Alta de turno>\n\n";
                 manager.alta();
                 break;
             case 2:
-                cout << "\n<Baja de turno>\n\n";
                 manager.baja();
                 break;
             case 3:
-                cout << "\n<Modificar turno>\n\n";
                 manager.modificar();
                 break;
             case 4:
-                cout << "\n<Listar turnos>\n\n";
                 manager.listar();
                 break;
             case 5:
-                cout << "\n<Buscar turno>\n\n";
                 manager.buscar();
                 break;
             case 0:
@@ -238,19 +224,15 @@ void Menu::menuObraSocial() {
 
         switch (opcion) {
             case 1:
-                cout << "\n<Alta de obra social>\n\n";
                 obj.altaObraSocial();
                 break;
             case 2:
-                cout << "\n<Baja de obra social>\n\n";
                 obj.bajaObraSocial();
                 break;
             case 3:
-                cout << "\n<Modificar obras sociales>\n\n";
                 obj.modificarObraSocial();
                 break;
             case 4:
-                cout << "\n<Listar obras sociales>\n\n";
                 obj.listarObraSocial();
                 break;
             case 0:
@@ -288,19 +270,15 @@ void Menu::menuEspecialidad() {
 
         switch (opcion) {
             case 1:
-                cout << "\n<Nueva especialidad>\n\n";
                 obj.altaEspecialidad();
                 break;
             case 2:
-                cout << "\n<Baja especialidad>\n\n";
                 obj.bajaEspecialidad();
                 break;
             case 3:
-                cout << "\n<Modificar especialidad>\n\n";
                 obj.modificarEspecialidad();
                 break;
             case 4:
-                cout << "\n<Listar especialidades>\n\n";
                 obj.listarEspecialidad();
                 break;
             case 0:
@@ -340,27 +318,21 @@ void Menu::menuReportes() {
 
         switch (opcion) {
             case 1:
-                cout << "\n<Recaudacion anual y mensual>\n\n";
                 obj.recaudacionAnualMensual();
                 break;
             case 2:
-                cout << "\n<Recaudacion segun obra social>\n\n";
                 obj.recaudacionObraSocial();
                 break;
             case 3:
-                cout << "\n<Recaudacion segun especialidad>\n\n";
                 obj.recaudacionEspecialidad();
                 break;
             case 4:
-                cout << "\n<Cantidad de pacientes por medico>\n\n";
                 obj.cantidadPacientesMedico();
                 break;
             case 5:
-                cout << "\n<Cantidad de turnos por medico>\n\n";
                 obj.cantidadTurnosMedico();
                 break;
             case 6:
-                cout << "\n<Cantidad de turnos por paciente>\n\n";
                 obj.cantidadTurnosPaciente();
                 break;
             case 0:
