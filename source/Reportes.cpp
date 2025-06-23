@@ -101,7 +101,11 @@ void Reporte::recaudacionObraSocial(){
     PacienteArchivo pacienteArchivo;
     ObraSocialArchivo obrasocialArchivo;
     ObraSocial reg;
-    float obraSocial[15]={0};
+
+    //generar un vector para acumular la recaudacion de cada obra social
+    int cantObraSocial=obrasocialArchivo.getCantidadRegistros();
+    float* recaudacion = new float[cantObraSocial]();
+    if(recaudacion==nullptr){cout << "\nSe produjo un error de asignacion de memoria.\n"; return;}
 
     int cantTurnos = turnoArchivo.getCantidadRegistros();
     int cantPacientes = pacienteArchivo.getCantidadRegistros();
@@ -124,7 +128,7 @@ void Reporte::recaudacionObraSocial(){
         if(turnos[i].getEstado()){
             for(int e=0;e<cantPacientes;e++){
                 if(pacientes[e].getEstado() && pacientes[e].getDni()==turnos[i].getDniPaciente()){
-                    obraSocial[pacientes[e].getCodObraSocial()-1] += turnos[i].getImporteConsulta();
+                    recaudacion[pacientes[e].getCodObraSocial()-1] += turnos[i].getImporteConsulta();
                     break;
                 }
             }
@@ -142,14 +146,15 @@ void Reporte::recaudacionObraSocial(){
      << setw(10) << "Total ($)" << endl;
     cout << string(30, '=') << endl;
     //valores
-    for(int i=0;i<20;i++){
+    for(int i=0;i<cantObraSocial;i++){
     reg=obrasocialArchivo.leer(i);
         if(reg.getEstado()){
         cout << left
              << setw(20) << reg.getNombre()
-             << fixed << setprecision(2)<< setw(10) << obraSocial[i]
+             << fixed << setprecision(2)<< setw(10) << recaudacion[i]
              << setfill(' ') << endl;}}
     cout << endl;
+    delete[] recaudacion;
 
 }
 void Reporte::recaudacionEspecialidad(){
@@ -157,7 +162,11 @@ void Reporte::recaudacionEspecialidad(){
     MedicoArchivo medicoArchivo;
     EspecialidadArchivo especialidadArchivo;
     Especialidad reg;
-    float especialidades[15]={0};
+
+    //generar un vector para acumular la recaudacion de cada especialidad
+    int cantEspecialidades=especialidadArchivo.getCantidadRegistros();
+    float* recaudacion = new float[cantEspecialidades]();
+    if(recaudacion==nullptr){cout << "\nSe produjo un error de asignacion de memoria.\n"; return;}
 
     int cantTurnos = turnoArchivo.getCantidadRegistros();
     int cantMedicos = medicoArchivo.getCantidadRegistros();
@@ -180,7 +189,7 @@ void Reporte::recaudacionEspecialidad(){
         if(turnos[i].getEstado()){
             for(int e=0;e<cantMedicos;e++){
                 if(medicos[e].getEstado() && medicos[e].getDni()==turnos[i].getDniMedico()){
-                    especialidades[medicos[e].getCodigoEspecialidad()-1] += turnos[i].getImporteConsulta();
+                    recaudacion[medicos[e].getCodigoEspecialidad()-1] += turnos[i].getImporteConsulta();
                     break;
                 }
             }
@@ -197,15 +206,15 @@ void Reporte::recaudacionEspecialidad(){
      << setw(10) << "Total ($)" << endl;
     cout << string(35, '=') << endl;
     //valores
-    for(int i=0;i<20;i++){
+    for(int i=0;i<cantEspecialidades;i++){
     reg = especialidadArchivo.leer(i);
     if(reg.getEstado()){
         cout << left
              << setw(25) << reg.getNombre()
-             << fixed << setprecision(2)<< setw(10) << especialidades[i]
+             << fixed << setprecision(2)<< setw(10) << recaudacion[i]
              << setfill(' ') << endl;}}
     cout << endl;
-
+    delete[] recaudacion;
 
 }
 void Reporte::cantidadPacientesMedico(){
